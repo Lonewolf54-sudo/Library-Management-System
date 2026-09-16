@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Loans - The Archive</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        /* Grainy Texture Overlay */
+        .grain-overlay {
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            z-index: 99;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.02;
+        }
+
+        /* Reading Progress Gradient Underline */
+        .reading-progress {
+            height: 2px;
+            background: #79591d; /* Academic Gold */
+            box-shadow: 0 0 8px rgba(121, 89, 29, 0.3);
+        }
+
+        /* Hide scrollbars */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Animation for Book Return */
+        @keyframes bookReturn {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            50% { transform: translateY(-40px) scale(0.9) rotate(-5deg); opacity: 0.5; }
+            100% { transform: translateY(-100px) scale(0.5); opacity: 0; }
+        }
+        .animate-book-return {
+            animation: bookReturn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        /* Bookmark Clip */
+        .bookmark-clip {
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 85%, 0% 100%);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#5f4105",
+                        "surface": "#f7f9fb",
+                        "secondary-fixed": "#ffdeac",
+                        "surface-container": "#eceef0",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-tint": "#565e74",
+                        "background": "#f7f9fb",
+                        "tertiary": "#000000",
+                        "on-primary-fixed": "#131b2e",
+                        "on-primary-container": "#7c839b",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#001453",
+                        "secondary-fixed-dim": "#ebc07a",
+                        "primary": "#000000",
+                        "primary-container": "#131b2e",
+                        "on-tertiary-fixed-variant": "#173bab",
+                        "primary-fixed": "#dae2fd",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#607cec",
+                        "on-secondary-fixed": "#281900",
+                        "inverse-primary": "#bec6e0",
+                        "surface-container-high": "#e6e8ea",
+                        "on-secondary-container": "#78581c",
+                        "surface-container-highest": "#e0e3e5",
+                        "outline": "#76777d",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#f2f4f6",
+                        "outline-variant": "#c6c6cd",
+                        "tertiary-fixed-dim": "#b8c4ff",
+                        "tertiary-fixed": "#dde1ff",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "inverse-surface": "#2d3133",
+                        "secondary": "#79591d",
+                        "surface-dim": "#d8dadc",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-surface": "#191c1e",
+                        "secondary-container": "#fdd089",
+                        "on-tertiary-fixed": "#001453",
+                        "surface-variant": "#e0e3e5",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#191c1e",
+                        "on-surface-variant": "#45464d",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#f7f9fb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "12px",
+                        "stack-md": "24px",
+                        "container-padding": "24px",
+                        "gutter": "16px",
+                        "base": "8px",
+                        "stack-lg": "48px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["\"Source Serif 4\""],
+                        "title-md": ["Hanken Grotesk"],
+                        "body-sm": ["Hanken Grotesk"],
+                        "label-caps": ["Hanken Grotesk"],
+                        "headline-lg": ["\"Source Serif 4\""],
+                        "display-lg": ["\"Source Serif 4\""]
+                    },
+                    "fontSize": {
+                        "body-lg": ["16px", {"lineHeight": "26px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "title-md": ["18px", {"lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-lg antialiased transition-colors duration-500">
+<div class="grain-overlay"></div>
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 px-container-padding py-base flex justify-between items-center bg-background/70 backdrop-blur-xl">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary hover:opacity-80 transition-opacity cursor-pointer">menu</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-semibold text-primary">The Archive</h1>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high border-2 border-primary/5">
+<img class="w-full h-full object-cover" data-alt="Close up portrait of a young academic student looking thoughtfully at a library collection, wearing modern glasses and professional clothing. Soft cinematic library lighting in the background, scholarly and minimalist aesthetic, high-quality photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEUmNMrQciBkxI5BvO40X73xqCTBVvMmG0QiXFXo8illmMqZ8tQZhrM3U3Z_0PS-ZTZfOJXQflCMiRnTcer9TwEyFmkdiTMIqJkXjBc5q63eMweOCOMtNm5uvdHHNcvCHOnVwK_KtkIU8uBbx_aRNbZpbB3UlMqG0wrvExqsyQGanYQcGanBGcdpodA5OhqfvT13C6_nzzrEXKaPEDG_J_YDSRkFTfcJfQhTCzzmOtwHuJXVMNQoMQQji2B3Yrs6ulGNYJifnZVu0"/>
+</div>
+</header>
+<main class="pt-24 pb-32 px-container-padding">
+<!-- Success Notification (Hidden by default) -->
+<div class="fixed top-28 left-1/2 -translate-x-1/2 z-[60] bg-primary text-on-primary px-6 py-4 rounded-xl shadow-lg flex items-center gap-3 transition-all duration-500 opacity-0 pointer-events-none translate-y-[-20px]" id="success-notif">
+<span class="material-symbols-outlined text-secondary-container">check_circle</span>
+<span class="font-title-md text-title-md">Return Processed</span>
+</div>
+<!-- Hero Section -->
+<section class="mb-stack-lg">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-2">My Library Shelf</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xs">Manage your current intellectual pursuits and upcoming research materials.</p>
+</section>
+<!-- Currently Borrowed Section -->
+<section class="mb-stack-lg overflow-hidden">
+<div class="flex justify-between items-end mb-6">
+<h3 class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-widest">Currently Borrowed</h3>
+<span class="text-body-sm text-secondary font-semibold">3 items</span>
+</div>
+<!-- Bento-style Shelf Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="loan-grid">
+<!-- Book Card 1 -->
+<div class="group relative bg-surface-container-low rounded-xl p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)] hover:shadow-xl transition-all duration-300 flex flex-col border border-outline-variant/10" id="book-1">
+<div class="relative w-full aspect-[2/3] mb-4 overflow-hidden rounded-lg shadow-md group-hover:scale-[1.02] transition-transform duration-500">
+<img class="w-full h-full object-cover" data-alt="A vintage hardcover book with gold lettering on a dark blue spine, titled 'Classical Architecture'. The book is resting on a minimalist stone ledge in a modern library. Soft, diffused morning light illuminates the paper texture and fine dust particles in the air, creating a serene, scholarly mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuByLkP_4cegta1Gq8P-Cn5mLJolQUAxNYuRo0JM3gMXoNXyte0iVqv2xEzrSkdepjWqJ2RRowlhOwbncWY9NLXtw08EVp27qwmb4XDbIob6VlKtI2fhA5wfi1wZXu2-HL_E4B3YVdTakMpqYwadH9CJzpEly4_pr_B0EcWEQtZJGzrOOQhtD_ERFFLg7JUV7C_KKCJHYBdI8BfGHqucTbqvoCPUOhywUgkDt9AP7VdNwkEcYTKUzx7TgaS-mTOHYafKPtG4HbZbnog"/>
+<div class="absolute bottom-0 left-0 reading-progress w-[65%]"></div>
+</div>
+<div class="flex-grow">
+<h4 class="font-headline-lg-mobile text-xl text-primary mb-1 leading-tight">Classical Architecture</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Dr. Julian Vance</p>
+</div>
+<div class="flex justify-between items-center mt-auto">
+<div class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full font-label-caps text-[10px] uppercase">
+                            3 Days Left
+                        </div>
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors cursor-pointer" onclick="processReturn('book-1')" title="Return Book">keyboard_return</button>
+</div>
+</div>
+<!-- Book Card 2 (Overdue) -->
+<div class="group relative bg-surface-container-low rounded-xl p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)] hover:shadow-xl transition-all duration-300 flex flex-col border border-error/10" id="book-2">
+<div class="relative w-full aspect-[2/3] mb-4 overflow-hidden rounded-lg shadow-md group-hover:scale-[1.02] transition-transform duration-500">
+<img class="w-full h-full object-cover" data-alt="A thick academic journal titled 'Theoretical Physics Quarterly' with a minimalist white cover and black serif typography. The journal is lying on a dark charcoal surface, surrounded by focused, warm light that highlights the scholarly importance and modern research feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBimOTGTqc0W3gYilHm4OtojgAwdzwZnCfTzAM5ojCRuEJiroDKSteMEIlLc8RAW0y6IbV04L7HeNG6EHmr5nhTkgbBKwzv31tnkbw9kCPsxv5P0Uplbom4TVr7NJ_6TWHFs1_WUfAQVKwHQYxA_4QrzXAX-vVjjZaJ3iUiqIQijIemDx8nZhvhFq7ODCJNREaPzBoA-6zN7tR6PyoZ9djNnGM0m85t1N1OR9oS_ma7Eksv5lhNWh7f0tlDbdb4HTwRk75RfmrVA00"/>
+<div class="absolute bottom-0 left-0 reading-progress w-[90%]"></div>
+</div>
+<div class="flex-grow">
+<h4 class="font-headline-lg-mobile text-xl text-primary mb-1 leading-tight">Theoretical Physics</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Physics Institute</p>
+</div>
+<div class="flex justify-between items-center mt-auto">
+<div class="px-3 py-1 bg-error-container text-on-error-container rounded-full font-label-caps text-[10px] uppercase">
+                            Overdue
+                        </div>
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors cursor-pointer" onclick="processReturn('book-2')" title="Return Book">keyboard_return</button>
+</div>
+</div>
+<!-- Book Card 3 -->
+<div class="group relative bg-surface-container-low rounded-xl p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)] hover:shadow-xl transition-all duration-300 flex flex-col border border-outline-variant/10" id="book-3">
+<div class="relative w-full aspect-[2/3] mb-4 overflow-hidden rounded-lg shadow-md group-hover:scale-[1.02] transition-transform duration-500">
+<img class="w-full h-full object-cover" data-alt="A modern book with a clean geometric cover design in shades of blue and gold. The title 'Ethics in Design' is prominently displayed in elegant Source Serif typography. The book stands upright on a high-end minimalist bookshelf, bathed in soft, layered depth lighting from a nearby window." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJ_-UCYAcALDDEVrldRI4-smOeXhO_CvvNLwptPohqT_cJvE_gixhtcVC-bQFaKrEdSTWCTZBB5dRY-9yZxze-nRUVtAW_GXqzIwqU2OLW2rCs1pVdIYo4SnDR7iVHMYoncQqJyBfjoJWwl1fszek88yWntRqpaY4j36r5A3rhHPjT9f83Fbx0ED3TRFygpisocMfNQz31wgcQ9RowIJTs-lk8LA_IwCur_A7NMBVBnmJlQVlcFvInslfyYsroS3Za2DiS6MGwBSo"/>
+<div class="absolute bottom-0 left-0 reading-progress w-[22%]"></div>
+</div>
+<div class="flex-grow">
+<h4 class="font-headline-lg-mobile text-xl text-primary mb-1 leading-tight">Ethics in Design</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Elena Aris</p>
+</div>
+<div class="flex justify-between items-center mt-auto">
+<div class="px-3 py-1 bg-surface-container-highest text-on-surface-variant rounded-full font-label-caps text-[10px] uppercase">
+                            12 Days Left
+                        </div>
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors cursor-pointer" onclick="processReturn('book-3')" title="Return Book">keyboard_return</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Reading List (Wishlist) Shelf -->
+<section class="mb-stack-lg">
+<div class="flex justify-between items-end mb-6">
+<h3 class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-widest">Reading List</h3>
+<span class="material-symbols-outlined text-outline hover:text-primary cursor-pointer">arrow_forward</span>
+</div>
+<div class="flex gap-6 overflow-x-auto no-scrollbar pb-6 -mx-container-padding px-container-padding snap-x">
+<!-- Reading List Item 1 -->
+<div class="min-w-[140px] snap-start group cursor-pointer">
+<div class="relative aspect-[2/3] rounded-lg overflow-hidden shadow-md mb-2 group-hover:translate-y-[-4px] transition-transform duration-300">
+<img class="w-full h-full object-cover" data-alt="A book with a vibrant botanical illustration on the cover, showing detailed sketches of leaves and flowers. High-fidelity paper texture visible under soft library light. Minimalist aesthetics with scholarly depth, fitting into a clean research environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnY3kIg2dsKQYlM2oJNuEv2u6mZDrmjGOiztK388bLUqDMpgEkI9fBCZWj9dCQ89_JAP86CfoUzickM8v_-V-VwIiEkCpS2SMl4bLDCW8aw3MMDDf96Epfu94lNc2C8SATRjBoDnALy4pKsI4icgiAs4lLkUqUrcurA-nIAZn_Nuxm5D7SkqZsqmSNX3MX9uM7Aa-l2Pp51L2FbTpA-1er18-6nR11sHT8_eJSxECutKwftgjb92HJNgEDHKJBmG8KpevDePde4eU"/>
+<!-- Bookmark Metaphor -->
+<div class="absolute top-0 right-3 w-4 h-8 bg-secondary bookmark-clip shadow-sm z-10 transition-all duration-300 group-hover:h-10"></div>
+</div>
+<p class="font-title-md text-sm text-primary line-clamp-1">Natural History</p>
+</div>
+<!-- Reading List Item 2 -->
+<div class="min-w-[140px] snap-start group cursor-pointer">
+<div class="relative aspect-[2/3] rounded-lg overflow-hidden shadow-md mb-2 group-hover:translate-y-[-4px] transition-transform duration-300">
+<img class="w-full h-full object-cover" data-alt="A pile of minimalist poetry books with cream-colored covers and elegant black lettering. Soft charcoal background with a high-density backdrop blur effect. The mood is quiet, contemplative, and intellectually rich, following an elevated minimalist design style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuADn7Q9XesAArj38Fu2Y9NeCjE6rtFVYgw-rfjOtf_8ayLs4ePJgWvrq7kaQUUF8FOprXVw_DipRGP_bpv_cQXFNPOV1Pqt4Qbj2U0Ga-6u7Aigip4hwF26BZ-vcXh6mOMLZp1Zy6m35Yq7LYVoL2N51qdBmSV_b4jw-8lmO5RX58Jku2tRx3xzGQFLPrsEChC8ervRuvXU2OY5FGqR-0G4cDyk9eak5Uo36PoORnZyYwIERGuJSP5HETLhNxO9yXnbVje0c1blK7A"/>
+<div class="absolute top-0 right-3 w-4 h-8 bg-secondary bookmark-clip shadow-sm z-10 transition-all duration-300 group-hover:h-10"></div>
+</div>
+<p class="font-title-md text-sm text-primary line-clamp-1">Urbanism Today</p>
+</div>
+<!-- Reading List Item 3 -->
+<div class="min-w-[140px] snap-start group cursor-pointer">
+<div class="relative aspect-[2/3] rounded-lg overflow-hidden shadow-md mb-2 group-hover:translate-y-[-4px] transition-transform duration-300">
+<img class="w-full h-full object-cover" data-alt="Close-up of a high-quality hardcover book with a leather-textured brown cover and debossed gold title. The lighting is warm and directional, emphasizing the luxury and permanence of physical archives in a digital world. Soft focus background of a stone-walled reading room." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_sfn5Wkt5O1FlYJFZAYZDRqtdEKrLiaVg2t7F_zp-KpD7IfPCMebBECVVkLt5gNHGu91-DeKvTAwJqnNsMJNnh81ybeNAt_fefQCPu3oIPIJZdx1TB9PW9H13aQbMh35ccJb5HAxG4Gdgvsd7pIIwCSNiExAPx73TZAe81DSxBoVz1Tgu4pkylcyo_0htvZIp9vszR4h6WzbNVDdi1vnzFbibO6Sp1XKKcJjJajRl5eiszO6BaN_Vev5Mrbje_XUfNmteoGLgr28"/>
+<div class="absolute top-0 right-3 w-4 h-8 bg-secondary bookmark-clip shadow-sm z-10 transition-all duration-300 group-hover:h-10"></div>
+</div>
+<p class="font-title-md text-sm text-primary line-clamp-1">Global Trade</p>
+</div>
+<!-- Reading List Item 4 -->
+<div class="min-w-[140px] snap-start group cursor-pointer">
+<div class="relative aspect-[2/3] rounded-lg overflow-hidden shadow-md mb-2 group-hover:translate-y-[-4px] transition-transform duration-300">
+<img class="w-full h-full object-cover" data-alt="A row of classic literature books on a dark wood shelf, showing the spine details and gold foil lettering. The atmosphere is quiet and authoritative, emphasizing the intellectual wealth of the university archive. Gentle diffused lighting highlights the tactile paper quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVFqRAnmKl2Idr2zthsD4fpw0b4DWpU_0h0E1nxkaizgwBYnR-0dMJ2qDyAMzw_Ph0zFq3zHFx30GryfL6PAcyKVUeLojvVEreDr7wiHY4o1LfO2d9wN5KpURKL7xofEBezbnZ5Mo3lpWwxOCfWHiKJsYRKPj7LUREm5YnqykH4O4sCtSNM0qshaAmdYWNNwOk2C9r5BwsfNKT44lEPXfJ-C8eWLj5_QWS5i1940iIZq2Tx0cs0OTNx2Y-z-apRRCCYDe8l4DmzSk"/>
+<div class="absolute top-0 right-3 w-4 h-8 bg-secondary bookmark-clip shadow-sm z-10 transition-all duration-300 group-hover:h-10"></div>
+</div>
+<p class="font-title-md text-sm text-primary line-clamp-1">Human Psychology</p>
+</div>
+</div>
+</section>
+<!-- Reservation History Section -->
+<section class="mb-stack-lg">
+<h3 class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-widest mb-6">Reservation History</h3>
+<div class="space-y-4">
+<div class="flex items-center gap-4 p-4 bg-surface-container rounded-lg">
+<div class="w-12 h-16 bg-surface-container-highest rounded overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover grayscale opacity-60" data-alt="Small thumbnail of a book cover with abstract blue art, representing a history book about the sea. Professional minimalist style with scholarly aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOBtRpL8uRjSUAJeBN1KuYOcUhWkV4YmrUwFjNQLkCLMNuTBKhVDFI8qtV1gxXIFxl-LkcR60XFPX55qN0S0ujG3tYkX-D5G2SXNxAsMsvBtIYCaplSymAvEwsPNnP2U8CtbfZ6uqz83l3kS82uaWg2bpAvLAvVwYTGtVgcSRgSWeQ6TYa2EQoq4vIv5Z2p0GUQpSvlAoJgyW4tCgfwWMN6vPjr2RjLwlRHiJ2cj4TY9d5avbvpoxpMRzPrv2duKRSskRiSmwcxB8"/>
+</div>
+<div class="flex-grow">
+<h5 class="font-title-md text-sm text-primary">Maritime Silk Road</h5>
+<p class="font-body-sm text-[12px] text-outline">Returned 14 Oct 2023</p>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</div>
+<div class="flex items-center gap-4 p-4 bg-surface-container rounded-lg">
+<div class="w-12 h-16 bg-surface-container-highest rounded overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover grayscale opacity-60" data-alt="Small thumbnail of a book with a stark black and white architectural photography cover. Modern research tool aesthetic, scholarly and minimalist." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC030dwm6j35VdUDKqu9541nHJFrq77LQCKIrqMvb344yzeLrHxaOrLHfveOQi89ZVHWKxl6D6qe8g2laAgs3PiZgRxhB-V2Fb9uxBPdYPARuZbPj5b2L5NGxOnrT5WrO7ovze-xnND0pauWnonKZDoiTrhRmL0Ixy5jyE4as8nPFQF8H0B9yXbxeiaXMQ2mMqY22vmH2GIU9E7zg-mRPB4C-qScFYi4chIGhxVEJORH3HHMDDmajZITPFAEUMvtRIy1FSsGzwarr0"/>
+</div>
+<div class="flex-grow">
+<h5 class="font-title-md text-sm text-primary">Brutalist Manifesto</h5>
+<p class="font-body-sm text-[12px] text-outline">Returned 28 Sep 2023</p>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4 bg-background/70 backdrop-blur-xl rounded-t-xl shadow-[0_-10px_30px_rgba(0,0,0,0.04)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined mb-1 group-active:scale-90 transition-transform">home</span>
+<span class="font-label-caps text-label-caps">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined mb-1 group-active:scale-90 transition-transform">explore</span>
+<span class="font-label-caps text-label-caps">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined mb-1 group-active:scale-90 transition-transform">qr_code_scanner</span>
+<span class="font-label-caps text-label-caps">Scan</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary font-bold transition-colors group" href="#">
+<span class="material-symbols-outlined mb-1 scale-110" style="font-variation-settings: 'FILL' 1;">book_5</span>
+<span class="font-label-caps text-label-caps">Loans</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined mb-1 group-active:scale-90 transition-transform">person</span>
+<span class="font-label-caps text-label-caps">Profile</span>
+</a>
+</nav>
+<script>
+        function processReturn(id) {
+            const bookCard = document.getElementById(id);
+            const successNotif = document.getElementById('success-notif');
+
+            // 1. Trigger book flying animation
+            bookCard.classList.add('animate-book-return');
+            
+            // 2. Show Success Notification
+            setTimeout(() => {
+                successNotif.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-[-20px]');
+                successNotif.classList.add('opacity-100', 'translate-y-0');
+            }, 400);
+
+            // 3. Hide Card and Reset Notif
+            setTimeout(() => {
+                bookCard.style.display = 'none';
+                
+                // Hide Notification
+                setTimeout(() => {
+                    successNotif.classList.add('opacity-0', 'translate-y-[-20px]');
+                    successNotif.classList.remove('opacity-100', 'translate-y-0');
+                }, 2000);
+            }, 1000);
+        }
+
+        // Simple touch interaction for "The Shelf"
+        const shelves = document.querySelectorAll('.no-scrollbar');
+        shelves.forEach(shelf => {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            shelf.addEventListener('mousedown', (e) => {
+                isDown = true;
+                shelf.classList.add('active');
+                startX = e.pageX - shelf.offsetLeft;
+                scrollLeft = shelf.scrollLeft;
+            });
+            shelf.addEventListener('mouseleave', () => {
+                isDown = false;
+            });
+            shelf.addEventListener('mouseup', () => {
+                isDown = false;
+            });
+            shelf.addEventListener('mousemove', (e) => {
+                if(!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - shelf.offsetLeft;
+                const walk = (x - startX) * 2;
+                shelf.scrollLeft = scrollLeft - walk;
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Archive - Explore</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed-variant": "#5f4105",
+                    "surface": "#f7f9fb",
+                    "secondary-fixed": "#ffdeac",
+                    "surface-container": "#eceef0",
+                    "inverse-on-surface": "#eff1f3",
+                    "surface-tint": "#565e74",
+                    "background": "#f7f9fb",
+                    "tertiary": "#000000",
+                    "on-primary-fixed": "#131b2e",
+                    "on-primary-container": "#7c839b",
+                    "on-primary": "#ffffff",
+                    "tertiary-container": "#001453",
+                    "secondary-fixed-dim": "#ebc07a",
+                    "primary": "#000000",
+                    "primary-container": "#131b2e",
+                    "on-tertiary-fixed-variant": "#173bab",
+                    "primary-fixed": "#dae2fd",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "on-tertiary-container": "#607cec",
+                    "on-secondary-fixed": "#281900",
+                    "inverse-primary": "#bec6e0",
+                    "surface-container-high": "#e6e8ea",
+                    "on-secondary-container": "#78581c",
+                    "surface-container-highest": "#e0e3e5",
+                    "outline": "#76777d",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#f2f4f6",
+                    "outline-variant": "#c6c6cd",
+                    "tertiary-fixed-dim": "#b8c4ff",
+                    "tertiary-fixed": "#dde1ff",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "inverse-surface": "#2d3133",
+                    "secondary": "#79591d",
+                    "surface-dim": "#d8dadc",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-surface": "#191c1e",
+                    "secondary-container": "#fdd089",
+                    "on-tertiary-fixed": "#001453",
+                    "surface-variant": "#e0e3e5",
+                    "on-secondary": "#ffffff",
+                    "on-background": "#191c1e",
+                    "on-surface-variant": "#45464d",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "surface-bright": "#f7f9fb"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "12px",
+                    "stack-md": "24px",
+                    "container-padding": "24px",
+                    "gutter": "16px",
+                    "base": "8px",
+                    "stack-lg": "48px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["\"Source Serif 4\""],
+                    "title-md": ["Hanken Grotesk"],
+                    "body-sm": ["Hanken Grotesk"],
+                    "label-caps": ["Hanken Grotesk"],
+                    "headline-lg": ["\"Source Serif 4\""],
+                    "display-lg": ["\"Source Serif 4\""]
+            },
+            "fontSize": {
+                    "body-lg": ["16px", {"lineHeight": "26px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "title-md": ["18px", {"lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .shelf-gradient {
+            background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.02) 80%, rgba(0,0,0,0.05) 100%);
+        }
+        .book-spine-shadow {
+            box-shadow: -4px 0 8px -2px rgba(0,0,0,0.1), 4px 0 8px -2px rgba(0,0,0,0.1);
+        }
+        .grain-overlay {
+            background-image: url("https://www.transparenttextures.com/patterns/p6.png");
+            opacity: 0.03;
+            pointer-events: none;
+        }
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        .active-scale:active {
+            transform: scale(0.95);
+            transition: transform 0.3s;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen font-body-lg overflow-x-hidden selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 px-container-padding py-base flex justify-between items-center bg-background/70 backdrop-blur-xl">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary active-scale">menu</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-semibold text-primary">The Archive</h1>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden border border-outline-variant/30">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a university student with soft, directional lighting against a neutral academic background. The student is wearing a dark navy blazer, embodying a scholarly and focused persona. The image is clean, high-resolution, and adheres to a minimalist, elevated aesthetic with a muted color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7Fw87MVMwd4UOl4hRzYilhxmGbSififmiGR8zTWuqNBX02Kalt8Faj5HGhbQ0-y_m2wWEP-yCvAj_4Jr34zSci-mrUSKiyuTy2tnLg91mQWS5jAgzUAi2mad4Eaiz9wSqVJaHlajKssMp73Ni1PKrviOazmaZPJ8br9iUFIIsJxYoehtJ28uSXGUCyllTwkgsUQQVbvVUeIopn1Mllz5OEbqbLCHfqwBfTh-6U6VAsLpi6CEhn66Qx1sbvJcUZsw1zA5-qVBT5s4"/>
+</div>
+</header>
+<main class="pt-24 pb-32">
+<!-- Search & Filter Bar -->
+<section class="px-container-padding mb-stack-md">
+<div class="relative group">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="w-full pl-12 pr-4 py-4 bg-surface-container-low border border-outline-variant/30 rounded-xl focus:outline-none focus:ring-1 focus:ring-secondary focus:border-secondary transition-all font-body-lg placeholder:text-on-surface-variant/60" placeholder="Search the collection..." type="text"/>
+</div>
+<div class="flex items-center justify-between mt-gutter">
+<div class="flex gap-2">
+<button class="px-4 py-1.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-caps text-label-caps active-scale">ALL</button>
+<button class="px-4 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-caps text-label-caps active-scale">NEW</button>
+<button class="px-4 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-caps text-label-caps active-scale">POPULAR</button>
+</div>
+<div class="flex gap-4 text-on-surface-variant">
+<button class="material-symbols-outlined active-scale">tune</button>
+<button class="material-symbols-outlined active-scale">view_column</button>
+</div>
+</div>
+</section>
+<!-- Shelf: Computer Science -->
+<section class="mb-stack-lg">
+<div class="flex justify-between items-end px-container-padding mb-4">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">Computer Science</h2>
+<button class="text-secondary font-label-caps text-label-caps tracking-widest active-scale">VIEW ALL</button>
+</div>
+<div class="flex overflow-x-auto gap-gutter px-container-padding pb-6 snap-x snap-mandatory">
+<!-- Book 1 -->
+<div class="flex-shrink-0 w-36 snap-start active-scale cursor-pointer group">
+<div class="relative aspect-[2/3] rounded-lg bg-surface-container-highest shadow-[0_10px_30px_rgba(0,0,0,0.06)] overflow-hidden book-spine-shadow mb-3">
+<img class="w-full h-full object-cover" data-alt="High-quality book cover for a computer science textbook titled Algorithms and Complexity. The design is minimalist and scholarly, featuring dark navy and gold geometric patterns that suggest intricate structure and logic. The lighting is soft and professional, emphasizing the premium tactile paper texture with a subtle grain overlay." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDN-fW3snqOeVJp2FhK7tDw1jL5ed4udUira36KfISmNoe14KLJIGOOl4d4i_PBCh0D5Wl2xh8t2ihyOWFT4ht6hc6MlhmW3O8fRrR0AdIWKexqyOyPvANvqQgN-42S0i5gKUioEdKqOwowv3ju6ZugwieEvQL5JwBaQsjmOH4oOWRBrAOs9mfAYtakb7BQXA07Nh5qMW6gdcohW3BeXNSOE8pbmylXIcQbpqLwmGrDKpfPNkNs9vsH1jkq3Wr1imH-Xb1PNcamC2Q"/>
+<div class="grain-overlay absolute inset-0"></div>
+<div class="absolute top-2 right-2 bg-green-100 text-green-800 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-tighter">Available</div>
+</div>
+<p class="font-title-md text-title-md leading-tight line-clamp-2 text-primary">Algorithms &amp; Complexity</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Cormen et al.</p>
+</div>
+<!-- Book 2 -->
+<div class="flex-shrink-0 w-36 snap-start active-scale cursor-pointer group">
+<div class="relative aspect-[2/3] rounded-lg bg-surface-container-highest shadow-[0_10px_30px_rgba(0,0,0,0.06)] overflow-hidden book-spine-shadow mb-3">
+<img class="w-full h-full object-cover" data-alt="Minimalist book cover design for 'Modern Web Architecture'. The aesthetic is clean and corporate, utilizing a slate gray and white color palette with sharp typography. The image captures the feeling of a prestigious academic publication, with a soft diffused shadow suggesting it's standing upright on a shelf." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVMhZ2WPpH9vfD-OcZYzZNcYkNZPcQ4ewCmqoTCGCoRVtsoDsKez5pKU2PFXU5Yx6dV61ZaFuMzvdPbNnWkAFs7F63TURXovB8aNXE12G1tTFvEwnc8c0U46MNuFLv5mQQByZn-dD4U9m3MOoLMBJGAwYWs9CMKUuQQkT-Kff9ADzMjFPqcrCpPvHnCzsUTt4U-aDVcCWlh3xYd-4IeWELaJJwTIOYzo64uQxiR0_FS7CD6ry-UQNGp95QJFEJCnL_2NhDRVMyHxg"/>
+<div class="grain-overlay absolute inset-0"></div>
+<div class="absolute top-2 right-2 bg-green-100 text-green-800 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-tighter">Available</div>
+</div>
+<p class="font-title-md text-title-md leading-tight line-clamp-2 text-primary">Modern Web Architecture</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Dr. Aris V.</p>
+</div>
+<!-- Book 3 -->
+<div class="flex-shrink-0 w-36 snap-start active-scale cursor-pointer group">
+<div class="relative aspect-[2/3] rounded-lg bg-surface-container-highest shadow-[0_10px_30px_rgba(0,0,0,0.06)] overflow-hidden book-spine-shadow mb-3">
+<img class="w-full h-full object-cover" data-alt="Scholarly book cover for 'The Art of Programming' with a deep charcoal background and metallic silver line-art depicting a circuit diagram. The style is elevated minimalism, emphasizing a sense of deep intelligence and archival importance. The lighting is dramatic but soft." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCviMKYQQ1tX8l3liQ93pX-GV6Z7Wjk2qQjHEebnl0qQ6ccV_Xrb4cxVjN81j1uMd8jr6l3XKvWah9xohlnfYre2UMt5aduDONnMxBJpUVvndHGtwoBSX1UrGf6dT3MpazZCyfLPB2n5SyOgVJLwCQZMyunzFsNwJHdaEjQ_Wal8mMrxd1ZOukThuBeO0gUn5Q8fkbiGO5zMAWnkI1wLiwi8Lwmzd7_2ut3-B9VbESUdIR_eOLpDkVrFpPp9Fun1Kc3_90KemvDeS4"/>
+<div class="grain-overlay absolute inset-0"></div>
+<div class="absolute top-2 right-2 bg-green-100 text-green-800 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-tighter">Available</div>
+</div>
+<p class="font-title-md text-title-md leading-tight line-clamp-2 text-primary">The Art of Programming</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Knuth, D.</p>
+</div>
+</div>
+</section>
+<!-- Shelf: Artificial Intelligence (With Reserved States) -->
+<section class="mb-stack-lg">
+<div class="flex justify-between items-end px-container-padding mb-4">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">Artificial Intelligence</h2>
+<button class="text-secondary font-label-caps text-label-caps tracking-widest active-scale">VIEW ALL</button>
+</div>
+<div class="flex overflow-x-auto gap-gutter px-container-padding pb-6 snap-x snap-mandatory">
+<!-- Book 1 (Reserved) -->
+<div class="flex-shrink-0 w-36 snap-start opacity-60 grayscale-[0.5] active-scale cursor-pointer group">
+<div class="relative aspect-[2/3] rounded-lg bg-surface-container-highest shadow-[0_10px_30px_rgba(0,0,0,0.03)] overflow-hidden book-spine-shadow mb-3">
+<img class="w-full h-full object-cover" data-alt="Book cover for 'Neural Networks' featuring abstract blue and black shapes resembling neurons. The image has a slightly desaturated, faded look to suggest it is currently unavailable. The overall aesthetic is futuristic yet scholarly, fitting a high-fidelity digital library." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBk4Zj8yibm5oWQBWAIvJi67gIlRsNIfqCWcEWrgE4zrNs8Pw1YB45x6IYWJbTJ0OIiANY3zQrgbc_rzcc8qbZHCBykVZpw62Sq0ncJrcPCElDRSO0cUGZEPKsTxvn6-k4bowVZKov-WVTvz3WoqxcW3kcCM47M0Y2ECtATWXHMrilMhbcX3BmdN4BShH-7Ru9SnosWhdAybKlCW9tpf7j1KNgV8p4rezjdVtVO3y7bwM-lQd7LZkwmlbC3Y30V7k9Cwdni61qRsyY"/>
+<div class="grain-overlay absolute inset-0"></div>
+<div class="absolute inset-0 bg-white/20 backdrop-blur-[1px]"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="bg-error/90 text-on-error font-label-caps text-[10px] px-3 py-1 rounded-full shadow-lg">RESERVED</span>
+</div>
+</div>
+<p class="font-title-md text-title-md leading-tight line-clamp-2 text-on-surface-variant">Neural Networks</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant/70 mt-1">H. Simon</p>
+</div>
+<!-- Book 2 -->
+<div class="flex-shrink-0 w-36 snap-start active-scale cursor-pointer group">
+<div class="relative aspect-[2/3] rounded-lg bg-surface-container-highest shadow-[0_10px_30px_rgba(0,0,0,0.06)] overflow-hidden book-spine-shadow mb-3">
+<img class="w-full h-full object-cover" data-alt="Bold academic book cover for 'Generative Models' with a striking black and gold color scheme. Intricate golden fractal patterns decorate the center. The design is authoritative and high-end, representing an important intellectual work in the AI field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9ZTLqEgWVvSXCchuI-l6BQPBptCLDuvKITXanuCqDObpuGKaRH_MrIehHPbIJ1z8CJ9FK2RwPklo6f1NvnLx1CguWWPjDKf6dcxazKpVGWdQ--ThcS1l-pdNvVg0yYBNK35tEUHGKfSghtKkBM8-4I5WgEfolMRZJSIb3Wb3Aqc-t61yIMheNR1hjqH5YavhpCw0rbeSQu6UYokad67co_bNJdDT-CvcONHazPPBu9Lu6IiN0n4nB7T0kAVmN2UqM4-vo8MOiNTU"/>
+<div class="grain-overlay absolute inset-0"></div>
+<div class="absolute top-2 right-2 bg-green-100 text-green-800 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-tighter">Available</div>
+</div>
+<p class="font-title-md text-title-md leading-tight line-clamp-2 text-primary">Generative Models</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Goodfellow, I.</p>
+</div>
+<!-- Book 3 (Reserved) -->
+<div class="flex-shrink-0 w-36 snap-start opacity-60 grayscale-[0.5] active-scale cursor-pointer group">
+<div class="relative aspect-[2/3] rounded-lg bg-surface-container-highest shadow-[0_10px_30px_rgba(0,0,0,0.03)] overflow-hidden book-spine-shadow mb-3">
+<img class="w-full h-full object-cover" data-alt="A book cover for 'Ethics in Machine Learning' with a clean, ivory background and simple black serif typography. The lighting is bright and even, but the image is intentionally softened and dimmed to indicate a reserved status in the UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXwT2jh4q_DaZ1W13KG0Q6R4bK0BKvI7siJRoE2cD4HxqXPcHlpyxeTxvwiT0qkTV9FaD6d10HE23xSietQ78VUm8xmpXXlpjJcSa0uzzxYTJQ0qPWT-rIF5_n22DcH4uUm6qJtDAioiggDOwQf-6qx1ARk_F_VWx-yiw3i20nq7ib1C0KN2-1T-LVMkh0IE7e361LqFpfqyqy6kz50A29sejkFDfJ5GDSMsKDdPq2uN9dP52yycqjDzy1xI_Xrug_4m1Q1n7qKLs"/>
+<div class="grain-overlay absolute inset-0"></div>
+<div class="absolute inset-0 bg-white/20 backdrop-blur-[1px]"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="bg-error/90 text-on-error font-label-caps text-[10px] px-3 py-1 rounded-full shadow-lg">RESERVED</span>
+</div>
+</div>
+<p class="font-title-md text-title-md leading-tight line-clamp-2 text-on-surface-variant">Ethics in ML</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant/70 mt-1">J. Moor</p>
+</div>
+</div>
+</section>
+<!-- Shelf: Fiction -->
+<section class="mb-stack-lg">
+<div class="flex justify-between items-end px-container-padding mb-4">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">Fiction</h2>
+<button class="text-secondary font-label-caps text-label-caps tracking-widest active-scale">VIEW ALL</button>
+</div>
+<div class="flex overflow-x-auto gap-gutter px-container-padding pb-6 snap-x snap-mandatory">
+<!-- Book 1 -->
+<div class="flex-shrink-0 w-36 snap-start active-scale cursor-pointer group">
+<div class="relative aspect-[2/3] rounded-lg bg-surface-container-highest shadow-[0_10px_30px_rgba(0,0,0,0.06)] overflow-hidden book-spine-shadow mb-3">
+<img class="w-full h-full object-cover" data-alt="Classic fiction book cover for 'The Quiet Room'. The design is atmospheric with deep forest greens and ivory accents. It evokes a sense of calm and mystery, perfect for a high-end scholarly library app. The typography is elegant serif, resembling an early 20th-century edition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXNMPcyHzu05FnPqVrzpzjejp4NahgTiyeQtfOVUxX_pL1ES5zik-B1aBGmRL4ekquS1qahLeuKRBnrKFjnWeajZCnvLvJu1wHRoSSdn1kKTx66vPqFx3PwXmjSNk15oLlXF8oCnw-yNatSSHaHaAYMBdCgVAojFShgL1PtX4Fd8Mz7mOhc52oqxiBSgDgwC592La9043dERwhuXlTGd7OEW50Nd-CGd_UZR-WGBwMeIO7YJfQMzBPxYiOfn0398GLawMiothj-Y4"/>
+<div class="grain-overlay absolute inset-0"></div>
+<div class="absolute top-2 right-2 bg-green-100 text-green-800 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-tighter">Available</div>
+</div>
+<p class="font-title-md text-title-md leading-tight line-clamp-2 text-primary">The Quiet Room</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Elara Thorne</p>
+</div>
+<!-- Book 2 -->
+<div class="flex-shrink-0 w-36 snap-start active-scale cursor-pointer group">
+<div class="relative aspect-[2/3] rounded-lg bg-surface-container-highest shadow-[0_10px_30px_rgba(0,0,0,0.06)] overflow-hidden book-spine-shadow mb-3">
+<img class="w-full h-full object-cover" data-alt="Modern fiction book cover for 'Midnight Archives' featuring a night sky with a subtle golden constellation map. The style is moody and sophisticated, using dark blues and warm golds to create a premium feel. The lighting suggests a soft lamp shining on the cover." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzwzmpBKuwZF9C4zplIpBiZDWB5yf0psTMk6dVXaEoaCbPqau3SL5AbWRSpq1DcGsBOVdBzPHLXhkx60pMOrqsq5aPmEJavfyB-NzYcmwBwROC5FYhaczLtVAzEWT9monShwBGsx5jt0r5A04XJSVr9Em5tDdjsaTDasLV1L3FbPdWdvUan-YMHOcoAAK-oDwN8Bj2Es-AGxfmpbnlcD95_f__S74dH3gVGS0TlDAzzNILjQfIdhy6_7qwGf8Oro0t66zh9sI-zGs"/>
+<div class="grain-overlay absolute inset-0"></div>
+<div class="absolute top-2 right-2 bg-green-100 text-green-800 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-tighter">Available</div>
+</div>
+<p class="font-title-md text-title-md leading-tight line-clamp-2 text-primary">Midnight Archives</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Leo Vance</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4 bg-background/70 backdrop-blur-xl rounded-t-xl shadow-[0_-10px_30px_rgba(0,0,0,0.04)]">
+<!-- Home -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active-scale" href="#">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-label-caps text-label-caps">Home</span>
+</a>
+<!-- Explore (Active) -->
+<a class="flex flex-col items-center justify-center text-primary font-bold active-scale" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="font-label-caps text-label-caps">Explore</span>
+</a>
+<!-- Scan -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active-scale" href="#">
+<div class="bg-primary text-on-primary p-3 rounded-full -mt-10 shadow-lg mb-1">
+<span class="material-symbols-outlined text-2xl">qr_code_scanner</span>
+</div>
+<span class="font-label-caps text-label-caps">Scan</span>
+</a>
+<!-- Loans -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active-scale" href="#">
+<span class="material-symbols-outlined mb-1">book_5</span>
+<span class="font-label-caps text-label-caps">Loans</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active-scale" href="#">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-label-caps text-label-caps">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for scroll effects
+        const shelves = document.querySelectorAll('.overflow-x-auto');
+        shelves.forEach(shelf => {
+            shelf.addEventListener('scroll', () => {
+                // Potential logic for adding fade indicators
+            });
+        });
+
+        // Toggle Grid/List placeholder
+        const toggleBtn = document.querySelector('button[span="view_column"]');
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+                alert("Switching to grid view...");
+            });
+        }
+    </script>
+</body></html>

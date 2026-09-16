@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Scholar's Ledger - Student Management</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;600;700&amp;family=Hanken+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@600&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed": "#131b2e",
+                    "inverse-surface": "#213145",
+                    "secondary-fixed": "#ffe088",
+                    "background": "#f8f9ff",
+                    "on-surface": "#0b1c30",
+                    "on-secondary-fixed": "#241a00",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed-variant": "#574500",
+                    "error-container": "#ffdad6",
+                    "primary-container": "#131b2e",
+                    "surface-dim": "#cbdbf5",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "tertiary-fixed-dim": "#c9c6c7",
+                    "surface-bright": "#f8f9ff",
+                    "primary": "#000000",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-tertiary-fixed-variant": "#474648",
+                    "secondary-container": "#fed65b",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-fixed": "#1c1b1d",
+                    "tertiary-container": "#1c1b1d",
+                    "tertiary": "#000000",
+                    "surface-variant": "#d3e4fe",
+                    "tertiary-fixed": "#e5e1e3",
+                    "outline-variant": "#c6c6cd",
+                    "on-tertiary-container": "#858385",
+                    "on-error": "#ffffff",
+                    "inverse-primary": "#bec6e0",
+                    "on-background": "#0b1c30",
+                    "on-primary-container": "#7c839b",
+                    "on-surface-variant": "#45464d",
+                    "secondary": "#735c00",
+                    "on-primary": "#ffffff",
+                    "surface-container-low": "#eff4ff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#f8f9ff",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed-dim": "#e9c349",
+                    "outline": "#76777d",
+                    "inverse-on-surface": "#eaf1ff",
+                    "surface-container-high": "#dce9ff",
+                    "on-secondary-container": "#745c00",
+                    "surface-tint": "#565e74",
+                    "surface-container": "#e5eeff",
+                    "primary-fixed": "#dae2fd"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sidebar-width": "280px",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "max-content-width": "1440px",
+                    "gutter": "24px",
+                    "xs": "0.5rem",
+                    "sm": "1rem",
+                    "base": "4px",
+                    "md": "1.5rem"
+            },
+            "fontFamily": {
+                    "headline-md": ["Libre Caslon Text"],
+                    "body-md": ["Hanken Grotesk"],
+                    "body-sm": ["Hanken Grotesk"],
+                    "headline-lg": ["Libre Caslon Text"],
+                    "display-lg": ["Libre Caslon Text"],
+                    "data-tabular": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "label-caps": ["JetBrains Mono"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Hanken Grotesk', sans-serif;
+            background-color: #f8f9ff;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .sidebar-active-indicator {
+            position: absolute;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: #735c00; /* Antique Gold */
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .table-row-hover:hover {
+            background-color: rgba(220, 233, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="text-on-surface bg-background antialiased">
+<!-- Side Navigation Shell -->
+<aside class="w-sidebar-width h-screen fixed left-0 top-0 bg-surface-container-lowest dark:bg-primary-container border-r border-outline-variant flex flex-col py-lg z-50">
+<div class="px-6 mb-8">
+<h1 class="font-headline-lg text-headline-lg font-bold text-on-surface dark:text-primary-fixed">Scholar's Ledger</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Library Administration</p>
+</div>
+<nav class="flex-1 overflow-y-auto custom-scrollbar">
+<!-- Navigation Items Mapping from JSON -->
+<!-- Active State Logic: Mapping 'Students' to active -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 border-l-4 border-secondary text-on-surface font-semibold bg-surface-container-low relative" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-caps text-label-caps">Students</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">account_balance</span>
+<span class="font-label-caps text-label-caps">Librarians</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-label-caps text-label-caps">Books</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">library_books</span>
+<span class="font-label-caps text-label-caps">Copies</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">person_edit</span>
+<span class="font-label-caps text-label-caps">Authors</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">corporate_fare</span>
+<span class="font-label-caps text-label-caps">Publishers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">category</span>
+<span class="font-label-caps text-label-caps">Categories</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">shelves</span>
+<span class="font-label-caps text-label-caps">Shelves</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-label-caps text-label-caps">Loans</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">event_upcoming</span>
+<span class="font-label-caps text-label-caps">Reservations</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-caps text-label-caps">Fines &amp; Payments</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="font-label-caps text-label-caps">Analytics</span>
+</a>
+</nav>
+<div class="px-4 mt-auto">
+<button class="w-full bg-primary text-on-primary font-body-sm py-3 px-4 rounded-lg flex items-center justify-center gap-2 hover:bg-on-primary-fixed-variant transition-all">
+<span class="material-symbols-outlined text-sm">add</span>
+<span>Quick Add</span>
+</button>
+</div>
+</aside>
+<!-- Top Navigation Shell -->
+<header class="h-16 fixed top-0 right-0 z-40 bg-surface-bright dark:bg-on-primary-fixed border-b border-outline-variant shadow-sm flex justify-between items-center px-lg w-[calc(100%-var(--spacing-sidebar-width))] ml-sidebar-width">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low border border-outline rounded-lg py-1.5 pl-10 pr-4 font-body-sm focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all" placeholder="Search student records..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-secondary text-on-secondary px-4 py-2 rounded-lg font-body-sm font-semibold flex items-center gap-2 hover:brightness-110 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-sm">add</span>
+                Add New
+            </button>
+<button class="text-on-surface-variant hover:text-secondary p-2 transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-surface-bright"></span>
+</button>
+<div class="flex items-center gap-3 pl-4 border-l border-outline-variant">
+<div class="text-right">
+<p class="font-body-sm font-semibold text-on-surface leading-tight">Admin User</p>
+<p class="font-label-caps text-[10px] text-on-surface-variant">SUPERVISOR</p>
+</div>
+<img class="w-9 h-9 rounded-full object-cover border border-outline-variant" data-alt="A professional headshot of a library administrator in a clean white studio setting, soft lighting, business attire, high-quality digital photography, professional lighting, modern corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZNGuNqBg6-SBlxoZNquVzF4jeOdQeBFeUBTzk7iKMc32Octd-ULll05BBf901m9-SwBB8JI0ZCIqeZkS7KkpNJandKSi3hSQdf_rkzDLDMmRe-r3YCZwIYgyEl3doApvL5EmSFsj16vqP41Afr4FPyfQtiyCjfw7BqtpGVVnEoQPFLx23H1IfSGbnfgR1a4JY4uQvSF4yJY5PQQoUlyQtTiZ0BqDJASFN0oGJ76NoCzseA_PoCtGy5Wh-6GFdzPFfWlpwPxJTHLE"/>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="ml-sidebar-width pt-16 min-h-screen">
+<div class="p-lg max-w-max-content-width mx-auto">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Student Registry</h2>
+<p class="font-body-md text-on-surface-variant mt-1">Manage institutional membership, track loans, and administrative status.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 border border-outline text-on-surface-variant font-body-sm rounded-lg hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">filter_list</span>
+                        Filters
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 border border-outline text-on-surface-variant font-body-sm rounded-lg hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">upload_file</span>
+                        Bulk Import
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 border border-outline text-on-surface-variant font-body-sm rounded-lg hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">download</span>
+                        Export
+                    </button>
+</div>
+</div>
+<!-- Stats Overview (Small Bento) -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter mb-8">
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-xl shadow-sm">
+<p class="font-label-caps text-on-surface-variant mb-1">Total Students</p>
+<div class="flex items-end justify-between">
+<span class="font-headline-md text-headline-md">12,482</span>
+<span class="text-success text-xs font-semibold flex items-center mb-1 text-secondary">+2.4%</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-xl shadow-sm">
+<p class="font-label-caps text-on-surface-variant mb-1">Active Loans</p>
+<div class="flex items-end justify-between">
+<span class="font-headline-md text-headline-md">3,120</span>
+<span class="text-on-surface-variant text-xs flex items-center mb-1">25% capacity</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-xl shadow-sm">
+<p class="font-label-caps text-on-surface-variant mb-1">Outstanding Fines</p>
+<div class="flex items-end justify-between">
+<span class="font-headline-md text-headline-md text-error">$12,840</span>
+<span class="material-symbols-outlined text-error mb-1">warning</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-xl shadow-sm">
+<p class="font-label-caps text-on-surface-variant mb-1">Suspended</p>
+<div class="flex items-end justify-between">
+<span class="font-headline-md text-headline-md">142</span>
+<span class="text-on-surface-variant text-xs flex items-center mb-1">1.1% total</span>
+</div>
+</div>
+</div>
+<!-- Data Table Container -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm overflow-hidden flex flex-col">
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-left border-collapse min-w-[1000px]">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant sticky top-0">
+<th class="px-4 py-4 font-label-caps text-on-surface-variant text-[11px] w-12">
+<input class="rounded border-outline focus:ring-secondary text-secondary" type="checkbox"/>
+</th>
+<th class="px-4 py-4 font-label-caps text-on-surface-variant text-[11px]">Student</th>
+<th class="px-4 py-4 font-label-caps text-on-surface-variant text-[11px]">Reg Number</th>
+<th class="px-4 py-4 font-label-caps text-on-surface-variant text-[11px]">Department</th>
+<th class="px-4 py-4 font-label-caps text-on-surface-variant text-[11px] text-center">Year</th>
+<th class="px-4 py-4 font-label-caps text-on-surface-variant text-[11px] text-right">Loans</th>
+<th class="px-4 py-4 font-label-caps text-on-surface-variant text-[11px] text-right">Fine Balance</th>
+<th class="px-4 py-4 font-label-caps text-on-surface-variant text-[11px] text-center">Status</th>
+<th class="px-4 py-4 font-label-caps text-on-surface-variant text-[11px] text-center">Actions</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-on-surface divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="table-row-hover transition-colors">
+<td class="px-4 py-2">
+<input class="rounded border-outline focus:ring-secondary text-secondary" type="checkbox"/>
+</td>
+<td class="px-4 py-2">
+<div class="flex items-center gap-3">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="A close-up portrait of a university student, diverse ethnic background, wearing a casual academic sweater, neutral office background, soft natural lighting, professional high-resolution photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSEjhIzdjRCFnZm-Vl-havuhDEDG_Deyqy5wxuUQCVewBY5xSOJURMRpXcvEAG7cLoxNVjLjHg5bGjQBWlMQXv4ZDRYZnmDZh0S2mQlS1eAzrXaJRUDHAq8FuxxGjUR6jFXOOZNqsZH0HNgqLHlxhwUXW-lQhaI6wRsAOHpboRat-VE_vJr4QTzRFYtYj4b-ql1OdBIaq9Cny-KRsS_2qXniZcFO1FsCimiXmRkgcABKpNKOtrf_gJIVkWYqqXXnaVjIHBBlYvdXQ"/>
+<span class="font-semibold">Elena Rostova</span>
+</div>
+</td>
+<td class="px-4 py-2 font-data-tabular">REG-2023-00412</td>
+<td class="px-4 py-2">Dept. of Applied Physics</td>
+<td class="px-4 py-2 text-center">3rd</td>
+<td class="px-4 py-2 text-right font-data-tabular">04</td>
+<td class="px-4 py-2 text-right font-data-tabular">$0.00</td>
+<td class="px-4 py-2 text-center">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/20 text-secondary text-[10px] font-bold uppercase tracking-wider">Active</span>
+</td>
+<td class="px-4 py-2 text-center">
+<button class="text-on-surface-variant hover:text-secondary transition-colors"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="table-row-hover transition-colors">
+<td class="px-4 py-2">
+<input class="rounded border-outline focus:ring-secondary text-secondary" type="checkbox"/>
+</td>
+<td class="px-4 py-2">
+<div class="flex items-center gap-3">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="Portrait of a young male student with glasses, smiling confidently, university library shelves blurred in background, crisp professional lighting, academic setting, realistic high-end photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCc-icjMu6W631pg2VIMmqwBAm_114jleNdt93ogO5wON6taQM4W6J5Gkcgld0z1ne1kHL-P2eZ7GbZVtVSzB2q8CcGcLTDNeuozUJwFlHjms3BUP_lyy3rJwA6VGpTRg5pqNv_3jwKyApGd6ja_yPnQ1WCBKzTJ1Man98N1pLe9_MlWn0xsrXLWcYG5nbjxU21XwjYD7LTRVr2M2BctpNwx6hN3QMa5UlUr-iDuD89HnSiMBwNnGSrWu17E6snqJHHMjok7bYncd0"/>
+<span class="font-semibold">Julian Vance</span>
+</div>
+</td>
+<td class="px-4 py-2 font-data-tabular">REG-2022-11854</td>
+<td class="px-4 py-2">Classical Literature</td>
+<td class="px-4 py-2 text-center">4th</td>
+<td class="px-4 py-2 text-right font-data-tabular">12</td>
+<td class="px-4 py-2 text-right font-data-tabular text-error font-bold">$45.50</td>
+<td class="px-4 py-2 text-center">
+<span class="px-2 py-0.5 rounded-full bg-error-container/20 text-error text-[10px] font-bold uppercase tracking-wider">Suspended</span>
+</td>
+<td class="px-4 py-2 text-center">
+<button class="text-on-surface-variant hover:text-secondary transition-colors"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="table-row-hover transition-colors">
+<td class="px-4 py-2">
+<input class="rounded border-outline focus:ring-secondary text-secondary" type="checkbox"/>
+</td>
+<td class="px-4 py-2">
+<div class="flex items-center gap-3">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="Portrait of a South Asian female student, focused expression, smart casual attire, modern campus interior background, high-end commercial photography, soft key light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDlUhX_OPxBIU2PbMXCflzI52zDwb3k1V8_0IvxVrLzs5aQXnZG5XSLjjQmjcRV0Zp6mNJIfgSMoaXQSY-qxvPJWFLE_tbEkWKcfto_nSKqBM8OQd4iw6SkX1_x3nVCoDQolnqOYsAExeWC5P5F1BrvTkoHuE4WTO412kkcxwRfIE_9JRTwNFOQ8olrbLpPNx6khdpfedNr_W4DtMxenIJPkHWbT75hQMJxl_3Ox4B2yiQJK0ECCZBf9taxHVhFa1HSfU39Y9gOt8"/>
+<span class="font-semibold">Aanya Sharma</span>
+</div>
+</td>
+<td class="px-4 py-2 font-data-tabular">REG-2024-00109</td>
+<td class="px-4 py-2">Computer Science</td>
+<td class="px-4 py-2 text-center">1st</td>
+<td class="px-4 py-2 text-right font-data-tabular">02</td>
+<td class="px-4 py-2 text-right font-data-tabular">$12.00</td>
+<td class="px-4 py-2 text-center">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/20 text-secondary text-[10px] font-bold uppercase tracking-wider">Active</span>
+</td>
+<td class="px-4 py-2 text-center">
+<button class="text-on-surface-variant hover:text-secondary transition-colors"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="table-row-hover transition-colors">
+<td class="px-4 py-2">
+<input class="rounded border-outline focus:ring-secondary text-secondary" type="checkbox"/>
+</td>
+<td class="px-4 py-2">
+<div class="flex items-center gap-3">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="Portrait of a young student with a friendly smile, outdoor university courtyard background, natural morning sunlight, cinematic depth of field, sharp focus on subject, professional grade image." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrkWX4cVenyPg4VfWnJZxe3eVk_KcuFvGxS-2lmh7uAN4g21hdem4Tj8nyb2-Iwc8xG3sKFlT64JeXlNeqJUxp0EE3W_UfgLBmzj8Iql0IpkRWwpuvFpQcbN3FrjpnPcYqkvPFjJ37TXI3aQiUUy3J9SaXfUl_Rzfat9TZROrdiAKEVEBhctcMBTzgFcGvTuTbJfZwdpg-nW0B2IPNNRRM-AU7ljDFysf67lGxdTixFouBekcbpqGcajtZhvZSTV-ohJSPcf5pCiE"/>
+<span class="font-semibold">Marcus Thorne</span>
+</div>
+</td>
+<td class="px-4 py-2 font-data-tabular">REG-2021-08823</td>
+<td class="px-4 py-2">Economics &amp; Finance</td>
+<td class="px-4 py-2 text-center">Post-Grad</td>
+<td class="px-4 py-2 text-right font-data-tabular">00</td>
+<td class="px-4 py-2 text-right font-data-tabular">$0.00</td>
+<td class="px-4 py-2 text-center">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/20 text-secondary text-[10px] font-bold uppercase tracking-wider">Active</span>
+</td>
+<td class="px-4 py-2 text-center">
+<button class="text-on-surface-variant hover:text-secondary transition-colors"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="table-row-hover transition-colors">
+<td class="px-4 py-2">
+<input class="rounded border-outline focus:ring-secondary text-secondary" type="checkbox"/>
+</td>
+<td class="px-4 py-2">
+<div class="flex items-center gap-3">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="A portrait of an international student, modern minimalist clothing, clean bright lighting, architectural campus background, high-contrast digital photography, professional grade." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqlzaTYE7xopeSPd3gDEnYttbbMreVxmd6eWpARyxybVETtlVJwAqsX64KqBRVZA7F4Ok313v0b7DYp-ZdIjnFE39mxzeXDqMpkc3L5Tsl9sA0A906sGizcJ5ihsCtKznk7rriXMZjNDMO_fcvBa6qRGIzldHI1OGGasV1WbuPFBuI7P18-0p3aJk0ZmKA0c4wiuxOqXCGLIlTYqVZ4zXjwmnzO5_rrVwwiF0j5VLQ5srevfhAkg_JMzXdFMfj6TnQZkOr07_u2Vc"/>
+<span class="font-semibold">Li Wei</span>
+</div>
+</td>
+<td class="px-4 py-2 font-data-tabular">REG-2023-04991</td>
+<td class="px-4 py-2">Structural Engineering</td>
+<td class="px-4 py-2 text-center">2nd</td>
+<td class="px-4 py-2 text-right font-data-tabular">06</td>
+<td class="px-4 py-2 text-right font-data-tabular text-error font-bold">$125.00</td>
+<td class="px-4 py-2 text-center">
+<span class="px-2 py-0.5 rounded-full bg-error-container/20 text-error text-[10px] font-bold uppercase tracking-wider">Suspended</span>
+</td>
+<td class="px-4 py-2 text-center">
+<button class="text-on-surface-variant hover:text-secondary transition-colors"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<!-- Row 6 -->
+<tr class="table-row-hover transition-colors">
+<td class="px-4 py-2">
+<input class="rounded border-outline focus:ring-secondary text-secondary" type="checkbox"/>
+</td>
+<td class="px-4 py-2">
+<div class="flex items-center gap-3">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="Portrait of a young black female student, smiling, academic gown elements, bright studio setting, warm lighting, professional graduation style photography, high resolution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBK55V0XHW4yhMZyQbAvpPbajmMplBjARyge9lmPNE1_R8DQQzpGdqL5ctJvCdB1HzrDLGvkWQEyANjvfP1zJKqO-6Myc5LJV_WWnA3rjTVqMgVhPjbZeFrc0VqsGKm9HkG1dFNxLynDs3nyEiOYp1pZ0II5e9ecFBuQT4adcBh6Fs2MgnjQB0Ee3zSR-nR924uopYbYtJlakmVTObT_veq6do1wRh4bCMoYJDLXQR88OXUXecHT7oGy8C18SImd8pOYnqUAytLdC0"/>
+<span class="font-semibold">Nia Adesuwa</span>
+</div>
+</td>
+<td class="px-4 py-2 font-data-tabular">REG-2022-00156</td>
+<td class="px-4 py-2">Medical Sciences</td>
+<td class="px-4 py-2 text-center">3rd</td>
+<td class="px-4 py-2 text-right font-data-tabular">08</td>
+<td class="px-4 py-2 text-right font-data-tabular">$4.25</td>
+<td class="px-4 py-2 text-center">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/20 text-secondary text-[10px] font-bold uppercase tracking-wider">Active</span>
+</td>
+<td class="px-4 py-2 text-center">
+<button class="text-on-surface-variant hover:text-secondary transition-colors"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="px-6 py-4 flex items-center justify-between border-t border-outline-variant bg-surface-container-low">
+<p class="font-body-sm text-on-surface-variant">Showing <span class="font-semibold">1-6</span> of <span class="font-semibold">12,482</span> students</p>
+<div class="flex items-center gap-1">
+<button class="p-2 rounded hover:bg-surface-container-high transition-colors text-on-surface-variant"><span class="material-symbols-outlined">first_page</span></button>
+<button class="p-2 rounded hover:bg-surface-container-high transition-colors text-on-surface-variant"><span class="material-symbols-outlined">chevron_left</span></button>
+<div class="flex gap-1 px-2">
+<button class="w-8 h-8 flex items-center justify-center rounded bg-secondary text-on-secondary font-bold text-xs">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded hover:bg-surface-container-high transition-colors font-semibold text-xs">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded hover:bg-surface-container-high transition-colors font-semibold text-xs">3</button>
+<span class="px-1 py-1">...</span>
+<button class="w-8 h-8 flex items-center justify-center rounded hover:bg-surface-container-high transition-colors font-semibold text-xs">208</button>
+</div>
+<button class="p-2 rounded hover:bg-surface-container-high transition-colors text-on-surface-variant"><span class="material-symbols-outlined">chevron_right</span></button>
+<button class="p-2 rounded hover:bg-surface-container-high transition-colors text-on-surface-variant"><span class="material-symbols-outlined">last_page</span></button>
+</div>
+</div>
+</div>
+<!-- Footer Details -->
+<footer class="mt-12 py-8 border-t border-outline-variant flex justify-between text-on-surface-variant font-label-caps text-[10px]">
+<p>© 2024 UNIVERSITY LIBRARY ADMINISTRATION - SCHOLAR'S LEDGER V2.4.1</p>
+<div class="flex gap-6">
+<a class="hover:text-secondary transition-colors" href="#">SYSTEM STATUS: OPTIMAL</a>
+<a class="hover:text-secondary transition-colors" href="#">API DOCUMENTATION</a>
+<a class="hover:text-secondary transition-colors" href="#">PRIVACY POLICY</a>
+</div>
+</footer>
+</div>
+</main>
+<!-- Floating Action Button - Suppression Rule Check: Active only on Dashboard/Home. 
+         Since this is the Student Registry, we keep it for 'Add Student' -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-secondary text-on-secondary rounded-full shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50 group">
+<span class="material-symbols-outlined text-2xl group-hover:rotate-90 transition-transform duration-300">add</span>
+</button>
+<script>
+        // Micro-interactions for table rows and status changes
+        document.querySelectorAll('.table-row-hover').forEach(row => {
+            row.addEventListener('click', (e) => {
+                if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON' && !e.target.closest('button')) {
+                    // Visual feedback for row selection
+                    row.classList.toggle('bg-surface-container-high');
+                }
+            });
+        });
+
+        // Search bar focus effect
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('ring-2', 'ring-secondary/20');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('ring-2', 'ring-secondary/20');
+        });
+    </script>
+</body></html>

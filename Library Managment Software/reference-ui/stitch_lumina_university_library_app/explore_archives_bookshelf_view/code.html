@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Archive - Explore</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Archivo+Narrow:wght@400;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Shelf Shadow for Depth */
+        .shelf-depth {
+            box-shadow: inset 0 -15px 30px -10px rgba(0,0,0,0.4), 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+        
+        /* Spine Shadow metaphor from Style Guidance */
+        .spine-shadow {
+            background: linear-gradient(90deg, rgba(0,0,0,0.15) 0%, rgba(255,255,255,0.05) 10%, transparent 20%);
+        }
+
+        /* Gold Gilt Border */
+        .gold-gilt {
+            border: 1px solid #d4af37;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f0edef;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #76777d;
+            border-radius: 10px;
+        }
+
+        /* Perspective for the shelf */
+        .perspective-container {
+            perspective: 1000px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed": "#e0e3e5",
+                      "inverse-surface": "#303032",
+                      "outline": "#76777d",
+                      "secondary-container": "#fed65b",
+                      "tertiary": "#000000",
+                      "tertiary-container": "#191c1e",
+                      "on-tertiary-fixed": "#191c1e",
+                      "surface-container-low": "#f6f3f5",
+                      "on-background": "#1b1b1d",
+                      "on-secondary-fixed-variant": "#574500",
+                      "outline-variant": "#c6c6cd",
+                      "on-tertiary-container": "#818486",
+                      "primary": "#000000",
+                      "on-surface-variant": "#45464d",
+                      "secondary": "#735c00",
+                      "error-container": "#ffdad6",
+                      "surface-variant": "#e4e2e4",
+                      "on-tertiary-fixed-variant": "#444749",
+                      "secondary-fixed": "#ffe088",
+                      "on-error": "#ffffff",
+                      "surface-container-highest": "#e4e2e4",
+                      "on-surface": "#1b1b1d",
+                      "inverse-on-surface": "#f3f0f2",
+                      "inverse-primary": "#bec6e0",
+                      "primary-container": "#131b2e",
+                      "on-tertiary": "#ffffff",
+                      "surface": "#fcf8fa",
+                      "surface-container": "#f0edef",
+                      "on-secondary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "tertiary-fixed-dim": "#c4c7c9",
+                      "on-primary": "#ffffff",
+                      "primary-fixed": "#dae2fd",
+                      "on-secondary-container": "#745c00",
+                      "surface-dim": "#dcd9db",
+                      "background": "#fcf8fa",
+                      "on-primary-container": "#7c839b",
+                      "on-secondary-fixed": "#241a00",
+                      "surface-bright": "#fcf8fa",
+                      "error": "#ba1a1a",
+                      "secondary-fixed-dim": "#e9c349",
+                      "on-primary-fixed": "#131b2e",
+                      "surface-tint": "#565e74",
+                      "surface-container-high": "#eae7e9",
+                      "primary-fixed-dim": "#bec6e0",
+                      "on-primary-fixed-variant": "#3f465c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "8px",
+                      "margin-page": "2rem",
+                      "inset-paper": "1.5rem",
+                      "gutter-shelf": "1rem"
+              },
+              "fontFamily": {
+                      "page-headline-lg": ["Libre Caslon Text"],
+                      "page-headline-lg-mobile": ["Libre Caslon Text"],
+                      "page-body": ["\"Source Serif 4\""],
+                      "spine-title": ["Archivo Narrow"],
+                      "label-caps": ["Archivo Narrow"]
+              },
+              "fontSize": {
+                      "page-headline-lg": ["40px", {"lineHeight": "48px", "fontWeight": "400"}],
+                      "page-headline-lg-mobile": ["30px", {"lineHeight": "36px", "fontWeight": "400"}],
+                      "page-body": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "spine-title": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-page-body text-page-body min-h-screen selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- Top AppBar -->
+<header class="w-full top-0 sticky z-40 bg-surface dark:bg-surface-container-highest border-b border-outline-variant flex justify-between items-center px-margin-page h-16">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary dark:text-on-primary-fixed hover:bg-surface-container-low transition-colors p-2 rounded-full">menu</button>
+<h1 class="font-page-headline-lg-mobile text-page-headline-lg-mobile text-primary dark:text-on-primary-fixed">The Archive</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors">view_list</button>
+<div class="w-8 h-8 rounded-full bg-primary overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A dignified close-up portrait of a scholar in a modern library setting. The lighting is soft and academic, highlighting a professional appearance. The background shows blurred bookshelves and warm mahogany tones, maintaining a high-end, serious research atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCS2lp9EqcJxamP8FvD1-SYX0VXBozhbs8fp5rEZsk3q-uAXijBym1Ne4jXhGXYrS17mZOREDM1fLfAYK4Jbm4BUXFryqx8LLrP71rceqLKVth6fOEFdlVYVxRQH0fgKz2Cor89Sip54_7AKOY7nebvXcgRHJb5j3sEXEqRquLPp4eGGkl9OuMcRPmC37RC-l0qczUdbaYvPR0RoH9mNUfyLYrEqWY0UHNwI3lY2GVp7NunpAgsuT63I4K2YtNVSVcMmozURjKETGY"/>
+</div>
+</div>
+</header>
+<main class="pb-24 px-margin-page pt-6">
+<!-- Search & Filter Area -->
+<section class="max-w-4xl mx-auto mb-8">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-12 pr-4 py-4 bg-surface-container-lowest border-b-2 border-outline-variant focus:border-primary transition-all outline-none font-page-body text-page-body" placeholder="Search title, author, ISBN..." type="text"/>
+</div>
+<div class="flex flex-wrap gap-3 mt-6">
+<button class="px-4 py-1.5 rounded-full bg-primary text-on-primary font-label-caps text-label-caps tracking-widest">ALL</button>
+<button class="px-4 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant border border-outline-variant font-label-caps text-label-caps tracking-widest hover:bg-surface-container-high transition-colors">COMPUTER SCIENCE</button>
+<button class="px-4 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant border border-outline-variant font-label-caps text-label-caps tracking-widest hover:bg-surface-container-high transition-colors">AI</button>
+<button class="px-4 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant border border-outline-variant font-label-caps text-label-caps tracking-widest hover:bg-surface-container-high transition-colors">DATA SCIENCE</button>
+</div>
+</section>
+<!-- Wooden Bookshelf Metaphor -->
+<div class="perspective-container max-w-6xl mx-auto">
+<!-- Shelf 01 -->
+<div class="mb-12">
+<div class="flex justify-between items-end px-2 mb-2 border-b border-outline-variant pb-1">
+<span class="font-label-caps text-label-caps text-outline tracking-widest">COMPUTER SCIENCE - Shelf CS-01</span>
+<span class="material-symbols-outlined text-outline text-sm">more_horiz</span>
+</div>
+<div class="relative min-h-[300px] w-full bg-[#3d2b1f] shelf-depth rounded-sm pt-4 px-4 flex items-end overflow-x-auto overflow-y-hidden custom-scrollbar gap-1 pb-2">
+<!-- Book 1 -->
+<div class="group relative flex-shrink-0 cursor-pointer transition-transform hover:-translate-y-2 hover:scale-105 duration-300" style="width: 48px; height: 240px;">
+<div class="absolute inset-0 bg-[#1a1a1a] gold-gilt flex flex-col justify-between py-6 px-1 shadow-2xl">
+<div class="spine-shadow absolute inset-0"></div>
+<div class="text-secondary-fixed text-[10px] font-label-caps text-center rotate-180 [writing-mode:vertical-rl]">KNUTH</div>
+<div class="text-on-primary font-spine-title text-spine-title text-center [writing-mode:vertical-rl] rotate-180">ALGORITHMS VOL 1</div>
+<div class="h-4 w-4 bg-secondary mx-auto rounded-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[10px] text-on-secondary">menu_book</span>
+</div>
+</div>
+</div>
+<!-- Book 2 -->
+<div class="group relative flex-shrink-0 cursor-pointer transition-transform hover:-translate-y-2 hover:scale-105 duration-300" style="width: 32px; height: 210px;">
+<div class="absolute inset-0 bg-[#4a0e0e] flex flex-col justify-center py-4 px-1 shadow-2xl">
+<div class="spine-shadow absolute inset-0"></div>
+<div class="text-[#fcf8fa]/80 font-spine-title text-[12px] text-center [writing-mode:vertical-rl] rotate-180 uppercase tracking-tighter">Structure & Interpretation</div>
+</div>
+</div>
+<!-- Book 3 -->
+<div class="group relative flex-shrink-0 cursor-pointer transition-transform hover:-translate-y-2 hover:scale-105 duration-300" style="width: 56px; height: 260px;">
+<div class="absolute inset-0 bg-[#2d3e50] border-l-4 border-secondary flex flex-col justify-between py-8 px-1 shadow-2xl">
+<div class="spine-shadow absolute inset-0"></div>
+<div class="text-white font-spine-title text-[14px] text-center [writing-mode:vertical-rl] rotate-180">OPERATING SYSTEMS</div>
+<div class="text-[#bec6e0] font-label-caps text-[9px] text-center">SILBERSCHATZ</div>
+</div>
+</div>
+<!-- Book 4 -->
+<div class="group relative flex-shrink-0 cursor-pointer transition-transform hover:-translate-y-2 hover:scale-105 duration-300" style="width: 40px; height: 230px;">
+<div class="absolute inset-0 bg-[#f5f5dc] border border-outline-variant flex flex-col justify-around py-4 px-1 shadow-2xl">
+<div class="spine-shadow absolute inset-0 opacity-40"></div>
+<div class="text-primary font-spine-title text-spine-title text-center [writing-mode:vertical-rl] rotate-180">Clean Architecture</div>
+<div class="text-primary/60 font-label-caps text-[10px] text-center">MARTIN</div>
+</div>
+</div>
+<!-- Filler space for shelf visual -->
+<div class="flex-grow"></div>
+</div>
+<!-- Shelf Wood Texture/Base -->
+<div class="h-4 w-full bg-[#2a1d15] rounded-b-lg shadow-xl"></div>
+</div>
+<!-- Shelf 02 (AI & Data Science) -->
+<div class="mb-12">
+<div class="flex justify-between items-end px-2 mb-2 border-b border-outline-variant pb-1">
+<span class="font-label-caps text-label-caps text-outline tracking-widest">ARTIFICIAL INTELLIGENCE - Shelf AI-04</span>
+<span class="material-symbols-outlined text-outline text-sm">more_horiz</span>
+</div>
+<div class="relative min-h-[300px] w-full bg-[#3d2b1f] shelf-depth rounded-sm pt-4 px-4 flex items-end overflow-x-auto overflow-y-hidden custom-scrollbar gap-1 pb-2">
+<!-- Book 1 -->
+<div class="group relative flex-shrink-0 cursor-pointer transition-transform hover:-translate-y-2 hover:scale-105 duration-300" style="width: 60px; height: 270px;">
+<div class="absolute inset-0 bg-[#000] gold-gilt flex flex-col justify-between py-6 px-1 shadow-2xl">
+<div class="spine-shadow absolute inset-0"></div>
+<div class="text-secondary-fixed text-[11px] font-label-caps text-center">RUSSELL & NORVIG</div>
+<div class="text-on-primary font-spine-title text-page-body text-center [writing-mode:vertical-rl] rotate-180">ARTIFICIAL INTELLIGENCE</div>
+<div class="h-1 w-8 bg-secondary mx-auto mb-2"></div>
+</div>
+</div>
+<!-- Book 2 -->
+<div class="group relative flex-shrink-0 cursor-pointer transition-transform hover:-translate-y-2 hover:scale-105 duration-300" style="width: 44px; height: 220px;">
+<div class="absolute inset-0 bg-[#2b5329] flex flex-col items-center justify-center py-4 px-1 shadow-2xl">
+<div class="spine-shadow absolute inset-0"></div>
+<div class="text-white font-spine-title text-spine-title text-center [writing-mode:vertical-rl] rotate-180 tracking-widest">DEEP LEARNING</div>
+</div>
+</div>
+<!-- Book 3 -->
+<div class="group relative flex-shrink-0 cursor-pointer transition-transform hover:-translate-y-2 hover:scale-105 duration-300" style="width: 38px; height: 245px;">
+<div class="absolute inset-0 bg-[#1e1b4b] border-y-4 border-secondary/40 flex flex-col justify-between py-6 px-1 shadow-2xl">
+<div class="spine-shadow absolute inset-0"></div>
+<div class="text-secondary-fixed font-label-caps text-[9px] text-center">GOODEFELLOW</div>
+<div class="text-white font-spine-title text-spine-title text-center [writing-mode:vertical-rl] rotate-180 uppercase">GANs Explained</div>
+<div class="text-secondary-fixed font-label-caps text-[9px] text-center">VOL IV</div>
+</div>
+</div>
+<div class="flex-grow"></div>
+</div>
+<div class="h-4 w-full bg-[#2a1d15] rounded-b-lg shadow-xl"></div>
+</div>
+<!-- List View Toggle FAB -->
+<button class="fixed bottom-24 right-8 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform active:scale-95 group">
+<span class="material-symbols-outlined group-hover:rotate-180 transition-transform duration-500">sync_alt</span>
+</button>
+</div>
+</main>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center h-20 px-2 pb-safe bg-surface dark:bg-inverse-surface border-t border-outline-variant shadow-lg z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-caps text-label-caps mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim relative after:content-[''] after:absolute after:top-0 after:w-8 after:h-1 after:bg-secondary dark:after:bg-secondary-fixed after:rounded-full" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="font-label-caps text-label-caps mt-1">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-primary transition-all" href="#">
+<div class="bg-secondary-container p-2 -mt-8 rounded-xl shadow-md border border-secondary/20">
+<span class="material-symbols-outlined text-on-secondary-container">document_scanner</span>
+</div>
+<span class="font-label-caps text-label-caps mt-1">Scan</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">book_5</span>
+<span class="font-label-caps text-label-caps mt-1">Loans</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-caps text-label-caps mt-1">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction: Spine tilt on mouse move for the shelf
+        const shelfItems = document.querySelectorAll('.group');
+        shelfItems.forEach(item => {
+            item.addEventListener('mousemove', (e) => {
+                const rect = item.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const percent = x / rect.width;
+                const tilt = (percent - 0.5) * 10;
+                item.querySelector('div').style.transform = `rotateY(${tilt}deg)`;
+            });
+            item.addEventListener('mouseleave', () => {
+                item.querySelector('div').style.transform = `rotateY(0deg)`;
+            });
+        });
+    </script>
+</body></html>

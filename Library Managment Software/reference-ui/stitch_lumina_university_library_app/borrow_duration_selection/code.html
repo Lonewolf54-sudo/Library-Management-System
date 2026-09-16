@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Archive - Borrow Selection</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Archivo+Narrow:wght@400;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#e0e3e5",
+                        "inverse-surface": "#303032",
+                        "outline": "#76777d",
+                        "secondary-container": "#fed65b",
+                        "tertiary": "#000000",
+                        "tertiary-container": "#191c1e",
+                        "on-tertiary-fixed": "#191c1e",
+                        "surface-container-low": "#f6f3f5",
+                        "on-background": "#1b1b1d",
+                        "on-secondary-fixed-variant": "#574500",
+                        "outline-variant": "#c6c6cd",
+                        "on-tertiary-container": "#818486",
+                        "primary": "#000000",
+                        "on-surface-variant": "#45464d",
+                        "secondary": "#735c00",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#e4e2e4",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "secondary-fixed": "#ffe088",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#e4e2e4",
+                        "on-surface": "#1b1b1d",
+                        "inverse-on-surface": "#f3f0f2",
+                        "inverse-primary": "#bec6e0",
+                        "primary-container": "#131b2e",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#fcf8fa",
+                        "surface-container": "#f0edef",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#dae2fd",
+                        "on-secondary-container": "#745c00",
+                        "surface-dim": "#dcd9db",
+                        "background": "#fcf8fa",
+                        "on-primary-container": "#7c839b",
+                        "on-secondary-fixed": "#241a00",
+                        "surface-bright": "#fcf8fa",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#e9c349",
+                        "on-primary-fixed": "#131b2e",
+                        "surface-tint": "#565e74",
+                        "surface-container-high": "#eae7e9",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-primary-fixed-variant": "#3f465c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "margin-page": "2rem",
+                        "inset-paper": "1.5rem",
+                        "gutter-shelf": "1rem"
+                    },
+                    "fontFamily": {
+                        "page-headline-lg": ["Libre Caslon Text"],
+                        "page-headline-lg-mobile": ["Libre Caslon Text"],
+                        "page-body": ["\"Source Serif 4\""],
+                        "spine-title": ["Archivo Narrow"],
+                        "label-caps": ["Archivo Narrow"]
+                    },
+                    "fontSize": {
+                        "page-headline-lg": ["40px", {"lineHeight": "48px", "fontWeight": "400"}],
+                        "page-headline-lg-mobile": ["30px", {"lineHeight": "36px", "fontWeight": "400"}],
+                        "page-body": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "spine-title": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .paper-texture {
+            background-color: #fcf8fa;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.5) 0%, transparent 100%),
+                repeating-linear-gradient(45deg, rgba(0,0,0,0.01) 0px, rgba(0,0,0,0.01) 1px, transparent 1px, transparent 10px);
+            box-shadow: inset 0 0 100px rgba(0,0,0,0.02);
+        }
+
+        .book-spread {
+            perspective: 2000px;
+        }
+
+        .page-flip-container {
+            transform-style: preserve-3d;
+            transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+
+        .page-surface {
+            backface-visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .page-back {
+            transform: rotateY(180deg);
+        }
+
+        .gilt-border {
+            border: 1px solid #d4af37;
+        }
+
+        .spine-gradient {
+            background: linear-gradient(to right, rgba(0,0,0,0.15) 0%, transparent 10%, transparent 90%, rgba(0,0,0,0.15) 100%);
+        }
+
+        .ledger-line {
+            border-bottom: 2px solid #1b1b1d;
+            background: transparent;
+        }
+
+        @keyframes bookmark-drop {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(0); }
+        }
+
+        .bookmark-ribbon {
+            animation: bookmark-drop 0.8s ease-out forwards;
+        }
+
+        /* Physical metaphorical shadow for the center fold */
+        .gutter-shadow {
+            background: linear-gradient(to right, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.05) 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-low min-h-screen flex flex-col font-page-body text-on-surface">
+<!-- Top Bar Navigation (Shared Component) -->
+<header class="bg-surface dark:bg-surface-container-highest text-primary dark:text-on-primary-fixed w-full top-0 sticky border-b border-outline-variant dark:border-outline flex justify-between items-center px-margin-page h-16 w-full z-50">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined cursor-pointer">menu</span>
+<h1 class="font-page-headline-lg-mobile text-page-headline-lg-mobile text-primary dark:text-on-primary-fixed font-bold">The Archive</h1>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-on-surface-variant font-label-caps text-label-caps tracking-widest hidden md:block">CIRCULATION DESK</span>
+<div class="w-10 h-10 rounded-full bg-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A high-quality studio portrait of a distinguished scholar with glasses, wearing a dark tweed jacket, set against a background of blurred mahogany bookshelves in a prestigious university library. The lighting is soft and academic, emphasizing the intellectual and sophisticated nature of the user profile." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7_ZDA_c1UGqFeCh5bL7op2kG-c0SeFaaWy21sztqtexNB9Wqv9LNUSoPvCpcWf6nkvKElUUJgbLt9HNJAcNi7_t89liY5QUjy93gZscz9_VHuNlKNGnnhMyYCIS-p_TxRKh5lxElHUAKVqZDw_im4bGpIV7P95lCk2PNCeguZoq2RFAYgZZGArUfustmyOrPlq9R2BxCrdfBV_VG7nFFykRAOWV94hpgyCHCyBJO6aWcy9_ZwwiKl1wi60yNfe2eJAYtu4B-41Bs"/>
+</div>
+</div>
+</header>
+<main class="flex-grow flex items-center justify-center p-8 overflow-hidden">
+<!-- The Desk Surface -->
+<div class="relative w-full max-w-6xl book-spread aspect-[1.4/1] flex shadow-2xl rounded-sm overflow-hidden">
+<!-- Left Page (Static) -->
+<div class="relative flex-1 paper-texture border-r border-black/5 p-inset-paper flex flex-col justify-between">
+<div class="absolute top-0 right-0 w-8 h-full gutter-shadow pointer-events-none"></div>
+<div class="z-10">
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-4 uppercase tracking-widest">Selected Volume</span>
+<h2 class="font-page-headline-lg text-page-headline-lg text-primary mb-2 italic">A Treatise on Celestial Mechanics</h2>
+<p class="text-on-surface-variant font-spine-title text-spine-title mb-8">P.S. Laplace | First Edition, 1799</p>
+<div class="space-y-4 max-w-sm opacity-60">
+<p class="italic">"The regular motions of the planets are the necessary result of the laws of gravity..."</p>
+<div class="w-full h-px bg-outline-variant"></div>
+<p class="text-sm leading-relaxed">This rare volume is held in the Special Collections vault. Borrowing is permitted for level III researchers under strict archival conditions.</p>
+</div>
+</div>
+<div class="mt-auto">
+<img class="w-32 opacity-40 mix-blend-multiply" data-alt="A detailed black ink architectural sketch of a grand library dome, drawn in a vintage 18th-century scientific illustration style on aged parchment paper. The drawing shows intricate details of stone masonry, radial symmetry, and classical proportions, echoing the academic theme of the archive." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAY-oTLRtP108ybbO8dhP4VPb60TR6fdUftMa7xLfN-jzuFJZqn6r73TXcxzLXsXtum2h6lpaVuG9Ta4BX7-jSkuLGbgJDbVdEVaNjxVOPaG1CYe61rK7GPL-jjxcsF8qUUVWOBq9fV0-kL__-Dsa0uGfXme2PDypKZTtmqcrwna6N36GFmHvu1Sw06FdZpxQEIVMTJLorDTyGX5JWFE7L8_jygiqU8hN9gIiCx2LjLsk6-El6kVdHAG9pBZPWX6aPwDxgYAZH_rYU"/>
+</div>
+<!-- Page Bookmark -->
+<div class="absolute top-0 right-12 w-6 h-32 bg-[#d4af37] bookmark-ribbon z-20 flex items-end justify-center pb-2 shadow-sm">
+<div class="w-0 h-0 border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-b-[8px] border-b-surface absolute -bottom-1"></div>
+</div>
+</div>
+<!-- Right Page (Animated Flip) -->
+<div class="relative flex-1 page-flip-container origin-left" id="right-page-container">
+<!-- Front side (The one flipping away - Placeholder) -->
+<div class="page-surface paper-texture p-inset-paper flex flex-col z-10">
+<div class="absolute top-0 left-0 w-8 h-full gutter-shadow opacity-40 pointer-events-none rotate-180"></div>
+<!-- Empty/Flipped content -->
+</div>
+<!-- Back side (The new spread - Current view) -->
+<div class="page-surface page-back paper-texture p-inset-paper flex flex-col justify-center items-center text-center">
+<!-- Note: Flipped content needs to be mirrored back to look normal -->
+<div class="w-full max-w-md transform scale-x-[-1]">
+<h3 class="font-page-headline-lg text-page-headline-lg-mobile text-primary mb-8">How long do you need this book?</h3>
+<div class="space-y-8 w-full text-left">
+<!-- Borrow Options -->
+<div class="space-y-4">
+<!-- Option 1 -->
+<label class="group flex items-center justify-between cursor-pointer py-3 border-b border-outline-variant hover:bg-surface-container-low transition-colors px-4">
+<div class="flex flex-col">
+<span class="font-spine-title text-spine-title text-primary">7 Days</span>
+<span class="text-xs text-on-surface-variant font-label-caps">(Quick reference)</span>
+</div>
+<div class="relative flex items-center justify-center">
+<input class="appearance-none w-5 h-5 border-2 border-outline rounded-full checked:border-secondary transition-all" name="duration" type="radio" value="7"/>
+<div class="absolute w-2 h-2 rounded-full bg-secondary scale-0 transition-transform duration-200"></div>
+</div>
+</label>
+<!-- Option 2 (Selected) -->
+<label class="group flex items-center justify-between cursor-pointer py-3 border-b-2 border-primary bg-surface-container-lowest shadow-sm px-4">
+<div class="flex flex-col">
+<span class="font-spine-title text-spine-title text-primary font-bold">14 Days</span>
+<span class="text-xs text-on-surface-variant font-label-caps">(Standard - Selected)</span>
+</div>
+<div class="relative flex items-center justify-center">
+<input checked="" class="appearance-none w-5 h-5 border-2 border-secondary rounded-full checked:border-secondary transition-all" name="duration" type="radio" value="14"/>
+<div class="absolute w-2.5 h-2.5 rounded-full bg-secondary scale-100 transition-transform duration-200"></div>
+</div>
+</label>
+<!-- Option 3 -->
+<label class="group flex items-center justify-between cursor-pointer py-3 border-b border-outline-variant hover:bg-surface-container-low transition-colors px-4">
+<div class="flex flex-col">
+<span class="font-spine-title text-spine-title text-primary">21 Days</span>
+<span class="text-xs text-on-surface-variant font-label-caps">(Extended study)</span>
+</div>
+<div class="relative flex items-center justify-center">
+<input class="appearance-none w-5 h-5 border-2 border-outline rounded-full checked:border-secondary transition-all" name="duration" type="radio" value="21"/>
+<div class="absolute w-2 h-2 rounded-full bg-secondary scale-0 transition-transform duration-200"></div>
+</div>
+</label>
+</div>
+<!-- Ledger Dates -->
+<div class="bg-surface-container-low/50 p-6 space-y-4 border border-outline-variant">
+<div class="flex justify-between items-end pb-1 border-b border-black/10">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Issue Date:</span>
+<span class="font-spine-title text-spine-title text-primary">July 28, 2026</span>
+</div>
+<div class="flex justify-between items-end pb-1 border-b border-black/10">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Return By:</span>
+<span class="font-spine-title text-spine-title text-secondary font-bold">August 11, 2026</span>
+</div>
+</div>
+<!-- CTA Button -->
+<button class="w-full bg-primary py-4 px-8 flex items-center justify-center gap-3 gilt-border group hover:bg-secondary transition-all duration-300 active:scale-95">
+<span class="text-on-primary font-label-caps text-label-caps tracking-[0.2em] group-hover:text-primary transition-colors">CONFIRM BORROW</span>
+<span class="material-symbols-outlined text-on-primary group-hover:text-primary transition-colors" style="font-variation-settings: 'FILL' 1;">book_5</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Page edges simulation -->
+<div class="absolute right-0 top-0 h-full w-2 bg-surface-container-highest flex flex-col">
+<div class="flex-1 border-r border-outline-variant"></div>
+<div class="flex-1 border-r border-outline-variant"></div>
+<div class="flex-1 border-r border-outline-variant"></div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation (Shared Component) -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center h-20 px-2 pb-safe bg-surface dark:bg-inverse-surface border-t border-outline-variant shadow-lg z-50 md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-caps text-[10px]">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-label-caps text-[10px]">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">document_scanner</span>
+<span class="font-label-caps text-[10px]">Scan</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim relative after:content-[''] after:absolute after:top-0 after:w-8 after:h-1 after:bg-secondary dark:after:bg-secondary-fixed after:rounded-full" href="#">
+<span class="material-symbols-outlined">book_5</span>
+<span class="font-label-caps text-[10px]">Loans</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-caps text-[10px]">Profile</span>
+</a>
+</nav>
+<!-- Desktop Navigation Drawer (Shared Component) - Hidden on Mobile -->
+<aside class="hidden lg:flex fixed inset-y-0 left-0 z-[60] flex flex-col py-6 bg-surface-container-low dark:bg-surface-container-highest h-full w-80 rounded-r-xl border-r border-outline-variant shadow-xl transform -translate-x-full transition-transform duration-300" id="main-drawer">
+<div class="px-6 mb-10 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container">school</span>
+</div>
+<div>
+<h4 class="font-spine-title text-spine-title text-primary">Scholar Account</h4>
+<p class="text-xs text-on-surface-variant">Level III Researcher</p>
+</div>
+</div>
+<nav class="flex-grow space-y-2">
+<div class="bg-secondary-container text-on-secondary-container rounded-lg mx-2 flex items-center px-4 py-3 cursor-pointer">
+<span class="material-symbols-outlined mr-3">auto_stories</span>
+<span class="font-spine-title">Special Collections</span>
+</div>
+<div class="text-on-surface-variant mx-2 flex items-center px-4 py-3 hover:bg-surface-container-high cursor-pointer transition-colors rounded-lg">
+<span class="material-symbols-outlined mr-3">meeting_room</span>
+<span class="font-spine-title">Reading Rooms</span>
+</div>
+<div class="text-on-surface-variant mx-2 flex items-center px-4 py-3 hover:bg-surface-container-high cursor-pointer transition-colors rounded-lg">
+<span class="material-symbols-outlined mr-3">history_edu</span>
+<span class="font-spine-title">Fine Press</span>
+</div>
+<div class="text-on-surface-variant mx-2 flex items-center px-4 py-3 hover:bg-surface-container-high cursor-pointer transition-colors rounded-lg">
+<span class="material-symbols-outlined mr-3">inventory_2</span>
+<span class="font-spine-title">Archives</span>
+</div>
+</nav>
+<div class="px-6 mt-auto border-t border-outline-variant pt-6">
+<p class="font-label-caps text-label-caps text-on-surface-variant">12 Books Held</p>
+</div>
+</aside>
+<script>
+        // Trigger page flip on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('right-page-container');
+            // Timeout to ensure initial state is rendered before animation
+            setTimeout(() => {
+                container.style.transform = 'rotateY(-180deg)';
+            }, 500);
+        });
+
+        // Toggle drawer logic
+        document.querySelector('header span.material-symbols-outlined:first-child').addEventListener('click', () => {
+            const drawer = document.getElementById('main-drawer');
+            drawer.classList.toggle('-translate-x-full');
+        });
+
+        // Radio button logic for dot animation
+        const radios = document.querySelectorAll('input[name="duration"]');
+        radios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                // Reset all dots and parent borders
+                radios.forEach(r => {
+                    r.nextElementSibling.classList.remove('scale-100');
+                    r.nextElementSibling.classList.add('scale-0');
+                    r.closest('label').classList.remove('border-primary', 'bg-surface-container-lowest', 'shadow-sm');
+                    r.closest('label').classList.add('border-outline-variant');
+                });
+                // Activate current
+                if (e.target.checked) {
+                    e.target.nextElementSibling.classList.remove('scale-0');
+                    e.target.nextElementSibling.classList.add('scale-100');
+                    e.target.closest('label').classList.add('border-primary', 'bg-surface-container-lowest', 'shadow-sm');
+                    e.target.closest('label').classList.remove('border-outline-variant');
+                }
+            });
+        });
+    </script>
+</body></html>

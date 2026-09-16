@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Scholar's Ledger | Admin Dashboard</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&family=Hanken+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&family=JetBrains+Mono:wght@100..900&family=Libre+Caslon+Text:wght@100..900&display=swap" rel="stylesheet"/>
+<!-- Scripts -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed": "#131b2e",
+                    "inverse-surface": "#213145",
+                    "secondary-fixed": "#ffe088",
+                    "background": "#f8f9ff",
+                    "on-surface": "#0b1c30",
+                    "on-secondary-fixed": "#241a00",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed-variant": "#574500",
+                    "error-container": "#ffdad6",
+                    "primary-container": "#131b2e",
+                    "surface-dim": "#cbdbf5",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "tertiary-fixed-dim": "#c9c6c7",
+                    "surface-bright": "#f8f9ff",
+                    "primary": "#000000",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-tertiary-fixed-variant": "#474648",
+                    "secondary-container": "#fed65b",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-fixed": "#1c1b1d",
+                    "tertiary-container": "#1c1b1d",
+                    "tertiary": "#000000",
+                    "surface-variant": "#d3e4fe",
+                    "tertiary-fixed": "#e5e1e3",
+                    "outline-variant": "#c6c6cd",
+                    "on-tertiary-container": "#858385",
+                    "on-error": "#ffffff",
+                    "inverse-primary": "#bec6e0",
+                    "on-background": "#0b1c30",
+                    "on-primary-container": "#7c839b",
+                    "on-surface-variant": "#45464d",
+                    "secondary": "#735c00",
+                    "on-primary": "#ffffff",
+                    "surface-container-low": "#eff4ff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#f8f9ff",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed-dim": "#e9c349",
+                    "outline": "#76777d",
+                    "inverse-on-surface": "#eaf1ff",
+                    "surface-container-high": "#dce9ff",
+                    "on-secondary-container": "#745c00",
+                    "surface-tint": "#565e74",
+                    "surface-container": "#e5eeff",
+                    "primary-fixed": "#dae2fd"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sidebar-width": "280px",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "max-content-width": "1440px",
+                    "gutter": "24px",
+                    "xs": "0.5rem",
+                    "sm": "1rem",
+                    "base": "4px",
+                    "md": "1.5rem"
+            },
+            "fontFamily": {
+                    "headline-md": ["Libre Caslon Text"],
+                    "body-md": ["Hanken Grotesk"],
+                    "body-sm": ["Hanken Grotesk"],
+                    "headline-lg": ["Libre Caslon Text"],
+                    "display-lg": ["Libre Caslon Text"],
+                    "data-tabular": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "label-caps": ["JetBrains Mono"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "data-tabular": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #f8f9ff;
+            color: #0b1c30;
+        }
+        .sidebar-active-indicator {
+            border-left: 4px solid #735c00;
+        }
+        .data-card {
+            border: 1px solid #e2e8f0;
+            background-color: #ffffff;
+            transition: all 0.2s ease;
+        }
+        .data-card:hover {
+            box-shadow: 0px 4px 12px rgba(15, 23, 42, 0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="font-body-md overflow-x-hidden">
+<!-- Side Navigation Shell -->
+<aside class="w-sidebar-width h-screen fixed left-0 top-0 bg-surface-container-lowest border-r border-outline-variant flex flex-col py-lg z-50">
+<div class="px-6 mb-10 flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-container flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-secondary-fixed">account_balance</span>
+</div>
+<div>
+<h1 class="font-headline-lg text-headline-lg font-bold text-on-surface">Scholar's Ledger</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Library Administration</p>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto custom-scrollbar">
+<ul class="space-y-1 px-2">
+<!-- Dashboard Active -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 border-l-4 border-secondary text-on-surface font-semibold bg-surface-container-low" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body-sm">Dashboard</span>
+</a>
+</li>
+<!-- Other Items -->
+<li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined" data-icon="group">group</span><span class="font-body-sm">Students</span></a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined" data-icon="menu_book">menu_book</span><span class="font-body-sm">Books</span></a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined" data-icon="library_books">library_books</span><span class="font-body-sm">Copies</span></a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span><span class="font-body-sm">Loans</span></a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined" data-icon="payments">payments</span><span class="font-body-sm">Fines & Payments</span></a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined" data-icon="monitoring">monitoring</span><span class="font-body-sm">Analytics</span></a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined" data-icon="assessment">assessment</span><span class="font-body-sm">Reports</span></a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined" data-icon="settings">settings</span><span class="font-body-sm">Settings</span></a></li>
+</ul>
+</nav>
+<div class="px-6 pt-lg mt-auto">
+<button class="w-full bg-on-primary-fixed text-white py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-primary transition-all">
+<span class="material-symbols-outlined">add</span>
+<span class="font-label-caps">Quick Add</span>
+</button>
+</div>
+</aside>
+<!-- Top Navigation Bar -->
+<header class="h-16 fixed top-0 right-0 z-40 bg-surface-bright border-b border-outline-variant shadow-sm flex justify-between items-center px-lg w-[calc(100%-var(--spacing-sidebar-width))] ml-sidebar-width">
+<div class="flex items-center flex-1 max-w-xl">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline rounded-lg text-body-sm focus:ring-2 focus:ring-secondary/20 focus:border-secondary outline-none transition-all" placeholder="Search catalog, students, or records..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4 border-r border-outline-variant pr-6">
+<button class="relative p-2 text-on-surface-variant hover:text-secondary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-secondary transition-colors">
+<span class="material-symbols-outlined">history</span>
+</button>
+</div>
+<div class="flex items-center gap-3 pl-2">
+<div class="text-right">
+<p class="font-body-sm font-semibold text-on-surface leading-none">Admin User</p>
+<p class="font-label-caps text-[10px] text-on-surface-variant">Librarian-in-Chief</p>
+</div>
+<img class="w-10 h-10 rounded-full border border-outline-variant object-cover" data-alt="A professional portrait of a university librarian administrator in a library setting, with soft focus bookshelves in the background. The aesthetic is clean, intellectual, and high-key lighting, maintaining the Scholarly Cream and Deep Navy color palette of the brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2ln_NXMHzzCTWoJ9PKF_IKXWXzoLkU-fhVgZKTIhApuWIWUkq1ywveetBJxcmVa2K7H2Rr1hxpwr7zJGpyWlF-PtLVk4_UVW8QIcblMhTw0mV2dYWbs75YVxb_KlidD7-_rj6QZ7m4xZMEcHpKPbvaBdjuYZNZduJQiQCXWnmzdl6tequvBJXTEEKaR5flzh3UwmK2qtDIYJURao7hLCX2blo9O-qGlhF9Nvc66qQEsdvuN3lPTiTEUQD2u6L52s3Y7G9KvY6RAU"/>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="ml-sidebar-width pt-16 min-h-screen p-lg">
+<!-- Dashboard Header -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<p class="font-label-caps text-secondary font-bold mb-1">LIBRARY OVERVIEW</p>
+<h2 class="font-headline-lg text-headline-lg text-on-primary-fixed">Executive Dashboard</h2>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 border border-outline text-on-surface-variant font-body-sm rounded-lg hover:bg-surface-container-high flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">download</span> Export Report
+                </button>
+<button class="px-4 py-2 bg-secondary text-white font-body-sm rounded-lg hover:brightness-110 flex items-center gap-2 transition-all">
+<span class="material-symbols-outlined text-[20px]">add</span> Add New
+                </button>
+</div>
+</div>
+<!-- Metric Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter mb-gutter">
+<!-- Total Students -->
+<div class="data-card p-6 rounded-xl flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-caps text-on-surface-variant uppercase">Total Students</span>
+<div class="p-2 bg-surface-container-high rounded-lg">
+<span class="material-symbols-outlined text-on-primary-fixed">group</span>
+</div>
+</div>
+<div class="flex items-end gap-3">
+<span class="font-headline-md text-[32px] text-on-surface">14,284</span>
+<span class="font-label-caps text-secondary mb-1 flex items-center">+2.4% <span class="material-symbols-outlined text-sm">arrow_upward</span></span>
+</div>
+<div class="mt-4 h-12 w-full opacity-50">
+<canvas id="studentSparkline"></canvas>
+</div>
+</div>
+<!-- Book Titles -->
+<div class="data-card p-6 rounded-xl flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-caps text-on-surface-variant uppercase">Book Titles</span>
+<div class="p-2 bg-surface-container-high rounded-lg">
+<span class="material-symbols-outlined text-on-primary-fixed">menu_book</span>
+</div>
+</div>
+<div class="flex items-end gap-3">
+<span class="font-headline-md text-[32px] text-on-surface">82,105</span>
+<span class="font-label-caps text-on-surface-variant mb-1">Last Update: Today</span>
+</div>
+<div class="mt-4 h-12 w-full opacity-50">
+<canvas id="booksSparkline"></canvas>
+</div>
+</div>
+<!-- Active Loans -->
+<div class="data-card p-6 rounded-xl flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-caps text-on-surface-variant uppercase">Active Loans</span>
+<div class="p-2 bg-surface-container-high rounded-lg">
+<span class="material-symbols-outlined text-on-primary-fixed">calendar_today</span>
+</div>
+</div>
+<div class="flex items-end gap-3">
+<span class="font-headline-md text-[32px] text-on-surface">3,492</span>
+<span class="font-label-caps text-on-surface-variant mb-1 flex items-center">-1.2% <span class="material-symbols-outlined text-sm">arrow_downward</span></span>
+</div>
+<div class="mt-4 h-12 w-full opacity-50">
+<canvas id="loansSparkline"></canvas>
+</div>
+</div>
+<!-- Overdue Books -->
+<div class="data-card p-6 rounded-xl flex flex-col border-error/20 bg-error-container/10">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-caps text-error uppercase">Overdue Books</span>
+<div class="p-2 bg-error-container rounded-lg">
+<span class="material-symbols-outlined text-error">warning</span>
+</div>
+</div>
+<div class="flex items-end gap-3">
+<span class="font-headline-md text-[32px] text-error">218</span>
+<span class="font-label-caps text-error mb-1 flex items-center">Critical</span>
+</div>
+<div class="mt-4 h-12 w-full opacity-50">
+<canvas id="overdueSparkline"></canvas>
+</div>
+</div>
+</div>
+<!-- Charts Section (Bento Layout) -->
+<div class="grid grid-cols-12 gap-gutter mb-gutter">
+<!-- Loans Over Time -->
+<div class="col-span-12 lg:col-span-8 data-card p-8 rounded-xl">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-on-surface">Loans Activity Trends</h3>
+<select class="bg-surface-container-low border-outline text-body-sm rounded-lg py-1 px-3">
+<option>Last 30 Days</option>
+<option>Last Quarter</option>
+<option>Last Year</option>
+</select>
+</div>
+<div class="h-80 w-full">
+<canvas id="loansMainChart"></canvas>
+</div>
+</div>
+<!-- Inventory Status (Donut) -->
+<div class="col-span-12 lg:col-span-4 data-card p-8 rounded-xl flex flex-col">
+<h3 class="font-headline-md text-on-surface mb-6">Inventory Status</h3>
+<div class="relative flex-1 flex items-center justify-center">
+<canvas id="inventoryDonut"></canvas>
+<div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+<span class="font-label-caps text-on-surface-variant">TOTAL</span>
+<span class="font-headline-md text-[28px] text-on-surface">115K</span>
+</div>
+</div>
+<div class="mt-6 grid grid-cols-2 gap-4">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary-container"></span>
+<span class="font-body-sm text-on-surface-variant">Available</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-secondary"></span>
+<span class="font-body-sm text-on-surface-variant">Issued</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-secondary-container"></span>
+<span class="font-body-sm text-on-surface-variant">Reserved</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-error"></span>
+<span class="font-body-sm text-on-surface-variant">Lost/Damaged</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Grid: Recent Activity & New Acquisitions -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Recent Activity Feed -->
+<div class="lg:col-span-2 data-card rounded-xl overflow-hidden">
+<div class="px-8 py-6 border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest">
+<h3 class="font-headline-md text-on-surface">Recent Activity</h3>
+<button class="text-secondary font-label-caps hover:underline">View All Logs</button>
+</div>
+<div class="divide-y divide-outline-variant">
+<div class="px-8 py-4 flex items-center gap-4 hover:bg-surface-container-low transition-colors">
+<div class="w-10 h-10 rounded-full flex items-center justify-center bg-surface-container-high">
+<span class="material-symbols-outlined text-on-primary-fixed">keyboard_return</span>
+</div>
+<div class="flex-1">
+<p class="font-body-sm text-on-surface"><span class="font-semibold">Sarah Jenkins</span> returned <span class="italic">"The Great Gatsby"</span></p>
+<p class="font-label-caps text-[11px] text-on-surface-variant">2 minutes ago • Copy #L8412</p>
+</div>
+<span class="px-2 py-1 bg-surface-container-high rounded text-[10px] font-label-caps text-on-surface-variant uppercase">Success</span>
+</div>
+<div class="px-8 py-4 flex items-center gap-4 hover:bg-surface-container-low transition-colors">
+<div class="w-10 h-10 rounded-full flex items-center justify-center bg-secondary-container/20">
+<span class="material-symbols-outlined text-secondary">outbox</span>
+</div>
+<div class="flex-1">
+<p class="font-body-sm text-on-surface"><span class="font-semibold">Dr. Alan Turing</span> checked out <span class="italic">"Applied Cryptography"</span></p>
+<p class="font-label-caps text-[11px] text-on-surface-variant">14 minutes ago • Copy #C0294</p>
+</div>
+<span class="px-2 py-1 bg-secondary-container/30 rounded text-[10px] font-label-caps text-secondary-fixed-dim uppercase">Issued</span>
+</div>
+<div class="px-8 py-4 flex items-center gap-4 hover:bg-surface-container-low transition-colors">
+<div class="w-10 h-10 rounded-full flex items-center justify-center bg-error-container/20">
+<span class="material-symbols-outlined text-error">report</span>
+</div>
+<div class="flex-1">
+<p class="font-body-sm text-on-surface"><span class="font-semibold">System Alert</span>: Fine triggered for <span class="font-semibold">James Holden</span></p>
+<p class="font-label-caps text-[11px] text-on-surface-variant">45 minutes ago • $12.50 Late Fee</p>
+</div>
+<span class="px-2 py-1 bg-error-container/30 rounded text-[10px] font-label-caps text-error uppercase">Fined</span>
+</div>
+<div class="px-8 py-4 flex items-center gap-4 hover:bg-surface-container-low transition-colors">
+<div class="w-10 h-10 rounded-full flex items-center justify-center bg-surface-container-high">
+<span class="material-symbols-outlined text-on-primary-fixed">person_add</span>
+</div>
+<div class="flex-1">
+<p class="font-body-sm text-on-surface">New Student Registration: <span class="font-semibold">Elena Fisher</span></p>
+<p class="font-label-caps text-[11px] text-on-surface-variant">1 hour ago • ID: ST-99231</p>
+</div>
+<span class="px-2 py-1 bg-surface-container-high rounded text-[10px] font-label-caps text-on-surface-variant uppercase">Account</span>
+</div>
+</div>
+</div>
+<!-- Library Spotlight / New Arrivals -->
+<div class="data-card rounded-xl overflow-hidden flex flex-col">
+<div class="px-6 py-6 border-b border-outline-variant bg-surface-container-lowest">
+<h3 class="font-headline-md text-on-surface">System Status</h3>
+</div>
+<div class="p-6 flex-1 space-y-6">
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-on-surface-variant">Storage Capacity</span>
+<span class="font-label-caps text-on-surface">82%</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full" style="width: 82%"></div>
+</div>
+<div class="pt-4 border-t border-outline-variant">
+<p class="font-label-caps text-on-surface-variant uppercase mb-4">Quick Insights</p>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-sm">trending_up</span>
+<p class="font-body-sm text-on-surface">Peak hours: 2:00 PM - 5:00 PM</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-sm">book</span>
+<p class="font-body-sm text-on-surface">Most popular: Science Fiction</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-error text-sm">error</span>
+<p class="font-body-sm text-on-surface">3 shelf audits pending</p>
+</div>
+</div>
+</div>
+<div class="mt-auto bg-primary-container p-4 rounded-lg text-white">
+<p class="font-body-sm font-semibold mb-2">Inventory Sync</p>
+<p class="text-[12px] opacity-70 mb-4">The last automated catalog sync completed successfully across all 12 branches.</p>
+<div class="flex items-center gap-2 text-[11px] font-label-caps text-secondary-fixed">
+<span class="w-2 h-2 rounded-full bg-secondary-fixed animate-pulse"></span>
+                            ACTIVE CONNECTION
+                        </div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Shared Chart Configs
+            const sparklineOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false }, tooltip: { enabled: false } },
+                scales: { x: { display: false }, y: { display: false } },
+                elements: { line: { tension: 0.4, borderWidth: 2 }, point: { radius: 0 } }
+            };
+
+            // Student Sparkline
+            new Chart(document.getElementById('studentSparkline'), {
+                type: 'line',
+                data: {
+                    labels: [1,2,3,4,5,6,7],
+                    datasets: [{ data: [12, 19, 13, 25, 22, 30, 28], borderColor: '#735c00', fill: false }]
+                },
+                options: sparklineOptions
+            });
+
+            // Books Sparkline
+            new Chart(document.getElementById('booksSparkline'), {
+                type: 'line',
+                data: {
+                    labels: [1,2,3,4,5,6,7],
+                    datasets: [{ data: [30, 32, 31, 33, 35, 34, 38], borderColor: '#131b2e', fill: false }]
+                },
+                options: sparklineOptions
+            });
+
+            // Loans Sparkline
+            new Chart(document.getElementById('loansSparkline'), {
+                type: 'line',
+                data: {
+                    labels: [1,2,3,4,5,6,7],
+                    datasets: [{ data: [25, 20, 18, 22, 21, 15, 12], borderColor: '#735c00', fill: false }]
+                },
+                options: sparklineOptions
+            });
+
+            // Overdue Sparkline
+            new Chart(document.getElementById('overdueSparkline'), {
+                type: 'line',
+                data: {
+                    labels: [1,2,3,4,5,6,7],
+                    datasets: [{ data: [10, 15, 8, 12, 18, 20, 22], borderColor: '#ba1a1a', fill: false }]
+                },
+                options: sparklineOptions
+            });
+
+            // Main Loans Activity Chart
+            new Chart(document.getElementById('loansMainChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Loans Issued',
+                        data: [450, 620, 580, 710, 890, 420, 310],
+                        borderColor: '#735c00',
+                        backgroundColor: 'rgba(115, 92, 0, 0.05)',
+                        fill: true,
+                        tension: 0.3
+                    }, {
+                        label: 'Returns',
+                        data: [410, 500, 620, 590, 780, 480, 350],
+                        borderColor: '#131b2e',
+                        borderDash: [5, 5],
+                        fill: false,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { position: 'top', align: 'end', labels: { boxWidth: 10, usePointStyle: true, font: { family: 'Hanken Grotesk', size: 12 } } }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: '#e2e8f0' }, ticks: { font: { family: 'Hanken Grotesk' } } },
+                        x: { grid: { display: false }, ticks: { font: { family: 'Hanken Grotesk' } } }
+                    }
+                }
+            });
+
+            // Inventory Donut Chart
+            new Chart(document.getElementById('inventoryDonut'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Available', 'Issued', 'Reserved', 'Lost/Damaged'],
+                    datasets: [{
+                        data: [70, 18, 8, 4],
+                        backgroundColor: ['#131b2e', '#735c00', '#fed65b', '#ba1a1a'],
+                        borderWidth: 0,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    cutout: '75%',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        });
+    </script>
+</body></html>

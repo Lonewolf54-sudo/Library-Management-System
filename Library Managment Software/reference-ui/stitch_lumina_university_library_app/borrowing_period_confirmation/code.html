@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Archive - Borrowing Flow</title>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary-fixed-variant": "#5f4105",
+            "surface": "#f7f9fb",
+            "secondary-fixed": "#ffdeac",
+            "surface-container": "#eceef0",
+            "inverse-on-surface": "#eff1f3",
+            "surface-tint": "#565e74",
+            "background": "#f7f9fb",
+            "tertiary": "#000000",
+            "on-primary-fixed": "#131b2e",
+            "on-primary-container": "#7c839b",
+            "on-primary": "#ffffff",
+            "tertiary-container": "#001453",
+            "secondary-fixed-dim": "#ebc07a",
+            "primary": "#000000",
+            "primary-container": "#131b2e",
+            "on-tertiary-fixed-variant": "#173bab",
+            "primary-fixed": "#dae2fd",
+            "error-container": "#ffdad6",
+            "error": "#ba1a1a",
+            "on-tertiary-container": "#607cec",
+            "on-secondary-fixed": "#281900",
+            "inverse-primary": "#bec6e0",
+            "surface-container-high": "#e6e8ea",
+            "on-secondary-container": "#78581c",
+            "surface-container-highest": "#e0e3e5",
+            "outline": "#76777d",
+            "surface-container-lowest": "#ffffff",
+            "on-error-container": "#93000a",
+            "surface-container-low": "#f2f4f6",
+            "outline-variant": "#c6c6cd",
+            "tertiary-fixed-dim": "#b8c4ff",
+            "tertiary-fixed": "#dde1ff",
+            "on-primary-fixed-variant": "#3f465c",
+            "inverse-surface": "#2d3133",
+            "secondary": "#79591d",
+            "surface-dim": "#d8dadc",
+            "primary-fixed-dim": "#bec6e0",
+            "on-surface": "#191c1e",
+            "secondary-container": "#fdd089",
+            "on-tertiary-fixed": "#001453",
+            "surface-variant": "#e0e3e5",
+            "on-secondary": "#ffffff",
+            "on-background": "#191c1e",
+            "on-surface-variant": "#45464d",
+            "on-tertiary": "#ffffff",
+            "on-error": "#ffffff",
+            "surface-bright": "#f7f9fb"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "stack-sm": "12px",
+            "stack-md": "24px",
+            "container-padding": "24px",
+            "gutter": "16px",
+            "base": "8px",
+            "stack-lg": "48px"
+          },
+          "fontFamily": {
+            "body-lg": ["Hanken Grotesk"],
+            "headline-lg-mobile": ["\"Source Serif 4\""],
+            "title-md": ["Hanken Grotesk"],
+            "body-sm": ["Hanken Grotesk"],
+            "label-caps": ["Hanken Grotesk"],
+            "headline-lg": ["\"Source Serif 4\""],
+            "display-lg": ["\"Source Serif 4\""]
+          },
+          "fontSize": {
+            "body-lg": ["16px", {"lineHeight": "26px", "fontWeight": "400"}],
+            "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+            "title-md": ["18px", {"lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+            "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+            "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700"}],
+            "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+            "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    
+    .page-turn-enter {
+      animation: pageTurn 0.8s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
+      transform-origin: left center;
+    }
+
+    @keyframes pageTurn {
+      0% { transform: perspective(2000px) rotateY(0deg); opacity: 1; }
+      100% { transform: perspective(2000px) rotateY(-180deg); opacity: 0; }
+    }
+
+    .success-card-pop {
+      animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.9) translateY(20px); opacity: 0; }
+      100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+
+    .paper-texture {
+      position: relative;
+    }
+    .paper-texture::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .glass-effect {
+      backdrop-filter: blur(20px);
+      background-color: rgba(247, 249, 251, 0.7);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-lg overflow-x-hidden">
+<!-- Top Bar -->
+<header class="fixed top-0 w-full z-50 px-container-padding py-base flex justify-between items-center bg-background/70 backdrop-blur-xl">
+<div class="flex items-center gap-4">
+<button class="hover:opacity-80 transition-opacity active:scale-95 duration-300">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-semibold text-primary">The Archive</h1>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A high-end professional studio portrait of a university student with soft, directional lighting against a muted charcoal library background. The aesthetic is scholarly and clean, reflecting an Ivy League atmosphere with high-fidelity detail and a calm, focused expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5ywlB-t2QFCEfXTt59JIREhORwiJ_Ao-ELILcoQjG832AxqyJUeml3MH9ZXQolUVG-KTYvdAofLMLiVcsUYIV5tPaH6beMpQAnZrjwMAAso93VRa5Xwi7rol5Zwr4uax2KvdaNh_RKxIL3U86TZJAdLTt2kTsnk5vV2MPgeyS2ao-j-34qE3lehWuHrfA3WaTAz8D9xf2KN84lExPTpAj1X5XIbGU5bKayKwdQD83TmxFw_jSYruznR627ceKpPCJckIxtXGokLQ"/>
+</div>
+</header>
+<main class="pt-24 pb-32 px-container-padding min-h-screen flex flex-col">
+<!-- Initial Borrowing Step -->
+<section class="flex-grow flex flex-col transition-all duration-500" id="borrow-step">
+<div class="mb-stack-lg">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-base">How long do you need this book?</h2>
+<p class="text-on-surface-variant font-body-sm">Select your borrowing duration. Renewals are subject to availability.</p>
+</div>
+<!-- Duration Options -->
+<div class="space-y-gutter mb-stack-lg">
+<!-- Option 1 -->
+<button class="duration-option w-full p-stack-md rounded-xl border border-outline-variant bg-surface-container-low flex justify-between items-center transition-all hover:border-secondary" onclick="selectOption(this, 7)">
+<div class="text-left">
+<span class="font-title-md text-on-surface">7 Days</span>
+<p class="text-on-surface-variant text-body-sm">Short-term research</p>
+</div>
+<div class="radio-circle w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center">
+<div class="dot w-3 h-3 rounded-full bg-secondary hidden"></div>
+</div>
+</button>
+<!-- Option 2 (Selected) -->
+<button class="duration-option selected w-full p-stack-md rounded-xl border-2 border-secondary bg-surface-container-highest flex justify-between items-center transition-all" onclick="selectOption(this, 14)">
+<div class="text-left">
+<span class="font-title-md text-on-surface">14 Days</span>
+<p class="text-on-surface-variant text-body-sm">Standard loan period</p>
+</div>
+<div class="radio-circle w-6 h-6 rounded-full border-2 border-secondary flex items-center justify-center">
+<div class="dot w-3 h-3 rounded-full bg-secondary block"></div>
+</div>
+</button>
+<!-- Option 3 -->
+<button class="duration-option w-full p-stack-md rounded-xl border border-outline-variant bg-surface-container-low flex justify-between items-center transition-all hover:border-secondary" onclick="selectOption(this, 21)">
+<div class="text-left">
+<span class="font-title-md text-on-surface">21 Days</span>
+<p class="text-on-surface-variant text-body-sm">Extended deep study</p>
+</div>
+<div class="radio-circle w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center">
+<div class="dot w-3 h-3 rounded-full bg-secondary hidden"></div>
+</div>
+</button>
+</div>
+<!-- Date Summary Card -->
+<div class="paper-texture bg-surface-container p-stack-md rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.04)] mb-stack-lg">
+<div class="flex justify-between items-center mb-4 pb-4 border-b border-outline-variant/30">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">calendar_today</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Issue Date</span>
+</div>
+<span class="font-title-md text-on-surface">Today</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">event_upcoming</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Return By</span>
+</div>
+<span class="font-title-md text-on-surface" id="return-date">Oct 24, 2023</span>
+</div>
+</div>
+<!-- CTA -->
+<div class="mt-auto">
+<button class="w-full py-4 bg-primary text-on-primary rounded-xl font-title-md shadow-lg active:scale-95 transition-transform duration-300 flex items-center justify-center gap-2" id="confirm-btn" onclick="handleBorrow()">
+<span>Confirm Borrow</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</section>
+<!-- Success State (Hidden by default) -->
+<section class="hidden flex-grow flex flex-col items-center justify-center text-center" id="success-state">
+<div class="success-card-pop paper-texture bg-white p-8 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.08)] max-w-sm w-full border border-outline-variant/20">
+<div class="w-16 h-16 bg-secondary-container text-on-secondary-container rounded-full flex items-center justify-center mx-auto mb-6">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'wght' 600;">check_circle</span>
+</div>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-2">Request Confirmed</h3>
+<p class="text-on-surface-variant font-body-sm mb-8">Your copy of "The Architectural Legacy" is ready for pickup at Central Wing Desk 4.</p>
+<!-- QR Code Container -->
+<div class="bg-surface-container-low p-4 rounded-xl mb-8 flex flex-col items-center">
+<div class="w-40 h-40 bg-white p-2 rounded-lg border border-outline-variant/30 mb-4">
+<img class="w-full h-full" data-alt="A minimalist, high-contrast QR code generated for a luxury library app interface. The QR code is perfectly centered on a clean white background, surrounded by subtle academic design elements like fine lines and golden-ratio proportions. The visual is crisp, professional, and suggests a premium digital security layer." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFPUkeoE4efi9ar_mFFhpQelsqvvZvkmFkkdc4kX5PZkRVb0YQH6YA7GiA_xaLAeRzpJuQ2NRsUyEzrPfzWuS73O8m-npJxXVhreJqMz3X6bIgcaoop04dg7R59HRyaw4XEAPpHczrqceXNzIBtxBKqmAgJIcZqAQa6XGbpJ2KPRAkAvzUV7EGmyq5JjCdCx4T6Sa7a2gxKcKaltpcuFDxUoyJrZWtzrYh-j9zvX7YABDi5cVGLhX-sZ1c1pHQRsv2AmHC5cOm0Jw"/>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">LOAN ID: ARCH-2023-X92</span>
+</div>
+<button class="w-full py-3 border-2 border-primary text-primary rounded-lg font-title-md hover:bg-primary hover:text-on-primary transition-colors" onclick="window.location.reload()">
+          Return to Dashboard
+        </button>
+</div>
+</section>
+</main>
+<!-- Overlay for Animation Effect -->
+<div class="fixed inset-0 z-[100] bg-background pointer-events-none opacity-0" id="page-overlay"></div>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4 bg-background/70 backdrop-blur-xl shadow-[0_-10px_30px_rgba(0,0,0,0.04)] rounded-t-xl">
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:translate-y-[-2px] transition-transform duration-300">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-caps text-label-caps uppercase">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:translate-y-[-2px] transition-transform duration-300">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-label-caps text-label-caps uppercase">Explore</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:translate-y-[-2px] transition-transform duration-300">
+<span class="material-symbols-outlined">qr_code_scanner</span>
+<span class="font-label-caps text-label-caps uppercase">Scan</span>
+</button>
+<button class="flex flex-col items-center justify-center text-primary font-bold active:translate-y-[-2px] transition-transform duration-300">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">book_5</span>
+<span class="font-label-caps text-label-caps uppercase">Loans</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:translate-y-[-2px] transition-transform duration-300">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-caps text-label-caps uppercase">Profile</span>
+</button>
+</nav>
+<script>
+    function selectOption(element, days) {
+      // Remove selected state from all
+      document.querySelectorAll('.duration-option').forEach(opt => {
+        opt.classList.remove('selected', 'border-2', 'border-secondary', 'bg-surface-container-highest');
+        opt.classList.add('border', 'border-outline-variant', 'bg-surface-container-low');
+        opt.querySelector('.dot').classList.add('hidden');
+        opt.querySelector('.radio-circle').classList.replace('border-secondary', 'border-outline-variant');
+      });
+
+      // Add selected state to clicked
+      element.classList.add('selected', 'border-2', 'border-secondary', 'bg-surface-container-highest');
+      element.classList.remove('border', 'border-outline-variant', 'bg-surface-container-low');
+      element.querySelector('.dot').classList.remove('hidden');
+      element.querySelector('.radio-circle').classList.replace('border-outline-variant', 'border-secondary');
+
+      // Update Return Date Display
+      const date = new Date();
+      date.setDate(date.getDate() + days);
+      const options = { month: 'short', day: 'numeric', year: 'numeric' };
+      document.getElementById('return-date').textContent = date.toLocaleDateString('en-US', options);
+    }
+
+    function handleBorrow() {
+      const overlay = document.getElementById('page-overlay');
+      const borrowStep = document.getElementById('borrow-step');
+      const successState = document.getElementById('success-state');
+      const confirmBtn = document.getElementById('confirm-btn');
+
+      // Show loading state on button
+      confirmBtn.innerHTML = `<span class="material-symbols-outlined animate-spin">progress_activity</span> <span>Processing...</span>`;
+      confirmBtn.disabled = true;
+
+      setTimeout(() => {
+        // Trigger Page Turn Animation
+        overlay.classList.add('page-turn-enter');
+        overlay.style.opacity = '1';
+
+        setTimeout(() => {
+          borrowStep.classList.add('hidden');
+          successState.classList.remove('hidden');
+          overlay.style.opacity = '0';
+          overlay.classList.remove('page-turn-enter');
+        }, 800);
+      }, 1000);
+    }
+
+    // Set initial return date for 14 days
+    selectOption(document.querySelector('.duration-option.selected'), 14);
+  </script>
+</body></html>

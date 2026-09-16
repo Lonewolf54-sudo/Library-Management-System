@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Archive - Book Details</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Archivo+Narrow:wght@400;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@100..900&display=swap" rel="stylesheet"/>
+<!-- Load Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#e0e3e5",
+                    "inverse-surface": "#303032",
+                    "outline": "#76777d",
+                    "secondary-container": "#fed65b",
+                    "tertiary": "#000000",
+                    "tertiary-container": "#191c1e",
+                    "on-tertiary-fixed": "#191c1e",
+                    "surface-container-low": "#f6f3f5",
+                    "on-background": "#1b1b1d",
+                    "on-secondary-fixed-variant": "#574500",
+                    "outline-variant": "#c6c6cd",
+                    "on-tertiary-container": "#818486",
+                    "primary": "#000000",
+                    "on-surface-variant": "#45464d",
+                    "secondary": "#735c00",
+                    "error-container": "#ffdad6",
+                    "surface-variant": "#e4e2e4",
+                    "on-tertiary-fixed-variant": "#444749",
+                    "secondary-fixed": "#ffe088",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#e4e2e4",
+                    "on-surface": "#1b1b1d",
+                    "inverse-on-surface": "#f3f0f2",
+                    "inverse-primary": "#bec6e0",
+                    "primary-container": "#131b2e",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#fcf8fa",
+                    "surface-container": "#f0edef",
+                    "on-secondary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed-dim": "#c4c7c9",
+                    "on-primary": "#ffffff",
+                    "primary-fixed": "#dae2fd",
+                    "on-secondary-container": "#745c00",
+                    "surface-dim": "#dcd9db",
+                    "background": "#fcf8fa",
+                    "on-primary-container": "#7c839b",
+                    "on-secondary-fixed": "#241a00",
+                    "surface-bright": "#fcf8fa",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#e9c349",
+                    "on-primary-fixed": "#131b2e",
+                    "surface-tint": "#565e74",
+                    "surface-container-high": "#eae7e9",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-primary-fixed-variant": "#3f465c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "margin-page": "2rem",
+                    "inset-paper": "1.5rem",
+                    "gutter-shelf": "1rem"
+            },
+            "fontFamily": {
+                    "page-headline-lg": ["Libre Caslon Text"],
+                    "page-headline-lg-mobile": ["Libre Caslon Text"],
+                    "page-body": ["Source Serif 4"],
+                    "spine-title": ["Archivo Narrow"],
+                    "label-caps": ["Archivo Narrow"]
+            },
+            "fontSize": {
+                    "page-headline-lg": ["40px", {"lineHeight": "48px", "fontWeight": "400"}],
+                    "page-headline-lg-mobile": ["30px", {"lineHeight": "36px", "fontWeight": "400"}],
+                    "page-body": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "spine-title": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .parchment-texture {
+            background-color: #fcf8fa;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 100%),
+                url("https://www.transparenttextures.com/patterns/natural-paper.png");
+        }
+
+        .book-spread {
+            perspective: 2000px;
+        }
+
+        .page-fold {
+            background: linear-gradient(to right, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 90%, rgba(0,0,0,0.05) 100%);
+        }
+
+        .spine-shadow {
+            background: linear-gradient(to right, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0) 100%);
+        }
+
+        .gilt-edge {
+            border: 1px solid #d4af37;
+        }
+
+        .ledger-line {
+            border-bottom: 1.5px solid #c6c6cd;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        .bookmark-ribbon {
+            width: 24px;
+            height: 60px;
+            background: #d4af37;
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 85%, 0% 100%);
+            position: absolute;
+            top: -4px;
+            right: 40px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .bookmark-ribbon:hover {
+            transform: translateY(10px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-low min-h-screen font-page-body text-on-surface overflow-x-hidden">
+<!-- Top Navigation Bar (Shared Component Strategy) -->
+<header class="w-full top-0 sticky bg-surface dark:bg-surface-container-highest flex justify-between items-center px-margin-page h-16 z-50 border-b border-outline-variant dark:border-outline">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary dark:text-on-primary-fixed hover:bg-surface-container-low transition-colors p-2 rounded-full">menu</button>
+<h1 class="font-page-headline-lg-mobile text-page-headline-lg-mobile text-primary dark:text-on-primary-fixed font-bold tracking-tight">The Archive</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex gap-6">
+<span class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary cursor-pointer transition-colors">COLLECTIONS</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary cursor-pointer transition-colors">RESEARCH</span>
+<span class="font-label-caps text-label-caps text-primary font-bold cursor-pointer transition-colors">LOANS</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-outline-variant overflow-hidden border border-outline">
+<img class="w-full h-full object-cover" data-alt="A professional scholar's portrait for a user profile avatar, rendered in a classic oil painting style with soft, warm library lighting. The person is wearing academic attire in deep blacks and greys against a backdrop of mahogany bookshelves. High-end, dignified, and scholarly aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDY0Fa4Y_mbgNGVq1hUNQEFEPCg88Ex9L3R4skp4fa1DU3nzlEFY3vgmnzSj24TOwtmmBQmsVz_t-VC2kC2K-Ql40w-bb7kSWAwqcvY0XLxIK7syQXHW2Xc3XJe2GKUAaXgkqAN3u0oIONbFdalOgjPo8fukY3n3teSN7zhfihQx7FENDQ1THIYfZGXIjHfeyNaJXez8dNoxkE8uh8UTGAI3lAH2e0BSCLJijcqacLgG7VM82qeswakUCKJUO13Y2ZeJoO0P0Z19R8"/>
+</div>
+</div>
+</header>
+<main class="max-w-[1200px] mx-auto px-4 py-12 md:py-20 flex flex-col items-center justify-center min-h-[calc(100vh-64px)]">
+<!-- Large Open Book Container -->
+<div class="book-spread relative w-full flex flex-col md:flex-row shadow-2xl rounded-sm overflow-visible bg-inverse-surface p-1 md:p-3 transition-all duration-500 hover:shadow-[0_40px_60px_-15px_rgba(0,0,0,0.5)]">
+<!-- Left Page: Cover & Identity -->
+<section class="parchment-texture relative flex-1 min-h-[500px] md:min-h-[700px] p-inset-paper flex flex-col items-center justify-between border-r border-outline-variant/30 overflow-hidden">
+<!-- Spine Shadow Detail -->
+<div class="absolute right-0 top-0 bottom-0 w-12 spine-shadow pointer-events-none opacity-50"></div>
+<div class="w-full space-y-8 flex flex-col items-center z-10">
+<!-- Book Cover Card (Tactile/Skeuomorphic) -->
+<div class="relative w-2/3 aspect-[2/3] bg-primary shadow-xl rounded-sm transform hover:rotate-1 transition-transform duration-300 group">
+<!-- Spine curvature simulation -->
+<div class="absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-r from-black/40 to-transparent"></div>
+<!-- Page edge simulation -->
+<div class="absolute right-[-4px] top-1 bottom-1 w-[4px] flex flex-col gap-[1px]">
+<div class="flex-1 bg-surface-container-high"></div>
+<div class="flex-1 bg-surface-container-high"></div>
+<div class="flex-1 bg-surface-container-high"></div>
+</div>
+<img class="w-full h-full object-cover rounded-sm opacity-90 group-hover:opacity-100 transition-opacity" data-alt="The front cover of a rare antique book titled 'The Chronometry of Light'. The cover is bound in deep obsidian leather with intricate gold-leaf gilding forming celestial diagrams. The style is 19th-century luxury bookbinding, shot in high-definition macro detail on a dark oak desk. Elegant, tactile, and mysterious." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCegvbGwGq7Zx6ry_4_yIDtXJR7gVRRzIYQJyr8xMoX2rm5pa_yEKdkaO6b75VR00Hlis5BMs1jTJwzbselZaJlvfEKeFAAnZjMQ-eobA847-pRhBfhV4vEfo4U6rjC9YvqSul_nEKiGN5aWJ-aEdbvpcAol-yevtzVY6l1vOr5dEI48YJlERRv19zl_lyBzOaNkvaa13nAz2Gwkyigu37tKrSdqhOpwQt2cYzK50oHg0alTR4JlGjXgOSCzcUJTcC29jMMyBfUJw8"/>
+</div>
+<div class="text-center space-y-2">
+<h2 class="font-page-headline-lg text-page-headline-lg leading-tight">The Chronometry of Light</h2>
+<p class="font-page-body italic text-on-surface-variant text-xl">By Julian A. Sterling</p>
+<div class="flex justify-center items-center gap-1 mt-4 text-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined">star_half</span>
+<span class="ml-2 font-label-caps text-label-caps text-on-surface-variant">(4.8 / 5)</span>
+</div>
+</div>
+</div>
+<div class="w-full flex justify-between items-end z-10 px-4 mb-2">
+<span class="font-label-caps text-on-surface-variant/40">PAGE 104</span>
+<div class="h-px bg-outline-variant/30 flex-1 mx-4 mb-1"></div>
+<span class="font-label-caps text-on-surface-variant/40">FOLIO IX</span>
+</div>
+</section>
+<!-- Right Page: Details & Actions -->
+<section class="parchment-texture relative flex-1 min-h-[500px] md:min-h-[700px] p-inset-paper flex flex-col overflow-hidden">
+<!-- Bookmark Ribbon -->
+<div class="bookmark-ribbon cursor-pointer" title="Add Bookmark"></div>
+<!-- Page Center Fold Detail -->
+<div class="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-l from-black/10 to-transparent pointer-events-none opacity-40 transform rotate-180"></div>
+<div class="flex-1 space-y-12 py-8 z-10">
+<!-- Availability Ledger -->
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">inventory_2</span>
+<h3 class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Availability</h3>
+</div>
+<div class="ledger-line pb-4 flex justify-between items-end">
+<span class="font-page-headline-lg text-2xl">3 Copies Available</span>
+<span class="font-label-caps text-label-caps text-on-secondary-container bg-secondary-container px-3 py-1 rounded-full">IN ARCHIVE</span>
+</div>
+</div>
+<!-- Shelf Location Grid -->
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">location_on</span>
+<h3 class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Library Location</h3>
+</div>
+<div class="grid grid-cols-3 gap-gutter-shelf">
+<div class="bg-surface-container border border-outline-variant p-4 flex flex-col items-center justify-center rounded-sm">
+<span class="font-label-caps text-[10px] text-on-surface-variant">COLLECTION</span>
+<span class="font-spine-title text-xl text-primary mt-1">CS</span>
+</div>
+<div class="bg-surface-container border border-outline-variant p-4 flex flex-col items-center justify-center rounded-sm">
+<span class="font-label-caps text-[10px] text-on-surface-variant">RACK</span>
+<span class="font-spine-title text-xl text-primary mt-1">Rack C</span>
+</div>
+<div class="bg-surface-container border border-outline-variant p-4 flex flex-col items-center justify-center rounded-sm">
+<span class="font-label-caps text-[10px] text-on-surface-variant">SHELF</span>
+<span class="font-spine-title text-xl text-primary mt-1">Shelf 04</span>
+</div>
+</div>
+</div>
+<!-- Bibliographic Data -->
+<div class="space-y-6 pt-4">
+<div class="grid grid-cols-2 gap-y-6">
+<div class="space-y-1">
+<p class="font-label-caps text-[11px] text-on-surface-variant">ISBN-13</p>
+<p class="font-spine-title text-primary">978-0-123456-78-9</p>
+</div>
+<div class="space-y-1">
+<p class="font-label-caps text-[11px] text-on-surface-variant">EDITION</p>
+<p class="font-spine-title text-primary">First Special Folio</p>
+</div>
+<div class="col-span-2 space-y-1">
+<p class="font-label-caps text-[11px] text-on-surface-variant">PUBLISHER</p>
+<p class="font-spine-title text-primary uppercase">Athenaeum University Press, London (1894)</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="mt-auto pt-8 space-y-4 z-10">
+<div class="flex flex-col sm:flex-row gap-4">
+<button class="flex-1 bg-primary text-on-primary py-4 px-6 flex items-center justify-center gap-3 transition-all hover:scale-[1.02] active:scale-95 group gilt-edge">
+<span class="font-label-caps text-label-caps text-secondary-fixed">BORROW</span>
+<span class="material-symbols-outlined text-secondary-fixed text-sm">arrow_forward</span>
+</button>
+<button class="flex-1 bg-surface-container-high text-primary border border-outline-variant py-4 px-6 flex items-center justify-center gap-3 transition-all hover:bg-surface-container-highest active:scale-95">
+<span class="material-symbols-outlined text-lg">map</span>
+<span class="font-label-caps text-label-caps">FIND ON SHELF</span>
+</button>
+</div>
+<button class="w-full py-3 flex items-center justify-center gap-2 text-on-surface-variant hover:text-secondary transition-colors group">
+<span class="material-symbols-outlined group-hover:fill-current">favorite</span>
+<span class="font-label-caps text-label-caps">ADD BOOKMARK</span>
+</button>
+</div>
+<div class="absolute right-4 bottom-4">
+<span class="font-label-caps text-on-surface-variant/40">PAGE 105</span>
+</div>
+</section>
+</div>
+<!-- Back Button -->
+<a class="mt-12 flex items-center gap-2 text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">arrow_back</span>
+<span class="font-label-caps text-label-caps">RETURN TO CATALOGUE</span>
+</a>
+</main>
+<!-- Contextual FAB (Only on Home/Dashboard, Suppressed here as per guidelines, but showing navigation alternative) -->
+<!-- Mobile Navigation Shell -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center h-20 px-2 pb-safe bg-surface dark:bg-inverse-surface border-t border-outline-variant shadow-lg z-50">
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline transition-all">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-caps text-[10px] mt-1">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline transition-all">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-label-caps text-[10px] mt-1">Explore</span>
+</div>
+<div class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim relative after:content-[''] after:absolute after:top-0 after:w-8 after:h-1 after:bg-secondary dark:after:bg-secondary-fixed after:rounded-full transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">book_5</span>
+<span class="font-label-caps text-[10px] mt-1">Loans</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline transition-all">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-caps text-[10px] mt-1">Profile</span>
+</div>
+</nav>
+<script>
+        // Micro-interaction for the book
+        const book = document.querySelector('.book-spread');
+        document.addEventListener('mousemove', (e) => {
+            if (window.innerWidth > 768) {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 100;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 100;
+                book.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            }
+        });
+
+        // Reset rotation on leave
+        document.addEventListener('mouseleave', () => {
+            book.style.transform = `rotateY(0deg) rotateX(0deg)`;
+        });
+
+        // Add Bookmark Toggle Logic
+        const bookmarkBtn = document.querySelector('.bookmark-ribbon');
+        bookmarkBtn.addEventListener('click', function() {
+            this.classList.toggle('translate-y-[20px]');
+            const isBookmarked = this.classList.contains('translate-y-[20px]');
+            this.style.background = isBookmarked ? '#d4af37' : '#735c00';
+        });
+    </script>
+</body></html>

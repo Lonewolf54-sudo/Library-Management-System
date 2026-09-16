@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Book Details - The Architecture of Thought</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed-variant": "#5f4105",
+                    "surface": "#f7f9fb",
+                    "secondary-fixed": "#ffdeac",
+                    "surface-container": "#eceef0",
+                    "inverse-on-surface": "#eff1f3",
+                    "surface-tint": "#565e74",
+                    "background": "#f7f9fb",
+                    "tertiary": "#000000",
+                    "on-primary-fixed": "#131b2e",
+                    "on-primary-container": "#7c839b",
+                    "on-primary": "#ffffff",
+                    "tertiary-container": "#001453",
+                    "secondary-fixed-dim": "#ebc07a",
+                    "primary": "#000000",
+                    "primary-container": "#131b2e",
+                    "on-tertiary-fixed-variant": "#173bab",
+                    "primary-fixed": "#dae2fd",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "on-tertiary-container": "#607cec",
+                    "on-secondary-fixed": "#281900",
+                    "inverse-primary": "#bec6e0",
+                    "surface-container-high": "#e6e8ea",
+                    "on-secondary-container": "#78581c",
+                    "surface-container-highest": "#e0e3e5",
+                    "outline": "#76777d",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#f2f4f6",
+                    "outline-variant": "#c6c6cd",
+                    "tertiary-fixed-dim": "#b8c4ff",
+                    "tertiary-fixed": "#dde1ff",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "inverse-surface": "#2d3133",
+                    "secondary": "#79591d",
+                    "surface-dim": "#d8dadc",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-surface": "#191c1e",
+                    "secondary-container": "#fdd089",
+                    "on-tertiary-fixed": "#001453",
+                    "surface-variant": "#e0e3e5",
+                    "on-secondary": "#ffffff",
+                    "on-background": "#191c1e",
+                    "on-surface-variant": "#45464d",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "surface-bright": "#f7f9fb"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "12px",
+                    "stack-md": "24px",
+                    "container-padding": "24px",
+                    "gutter": "16px",
+                    "base": "8px",
+                    "stack-lg": "48px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["\"Source Serif 4\""],
+                    "title-md": ["Hanken Grotesk"],
+                    "body-sm": ["Hanken Grotesk"],
+                    "label-caps": ["Hanken Grotesk"],
+                    "headline-lg": ["\"Source Serif 4\""],
+                    "display-lg": ["\"Source Serif 4\""]
+            },
+            "fontSize": {
+                    "body-lg": ["16px", {"lineHeight": "26px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "title-md": ["18px", {"lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f7f9fb;
+            color: #191c1e;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .paper-texture {
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        .glass-shell {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .filled-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+
+        .book-shadow {
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15), 0 10px 15px -5px rgba(0,0,0,0.1);
+        }
+
+        .shelf-gradient {
+            background: linear-gradient(180deg, rgba(247,249,251,0) 0%, rgba(247,249,251,1) 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-lg overflow-x-hidden pb-32">
+<!-- Top Navigation -->
+<nav class="fixed top-0 w-full z-50 px-container-padding py-base flex justify-between items-center bg-background/70 backdrop-blur-xl">
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-low hover:opacity-80 transition-opacity active:scale-95 duration-300" onclick="history.back()">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-semibold text-primary">The Archive</h1>
+<div class="flex gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-low hover:opacity-80 transition-opacity active:scale-95 duration-300">
+<span class="material-symbols-outlined text-primary">share</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Professional academic headshot of a student in a minimalist studio setting with soft side lighting and a neutral charcoal background. The student wears a scholarly expression, contributing to the high-fidelity, intellectual aesthetic of an Ivy League institution. 8k resolution, crisp details." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmGjBITdZiYR1NgfwpF8o9KU4B1a9zxTMU63N8kkZCplbFo85K23XL6VlPC5FmtNnticqxO7X_GazzNFvKyoBut7P8bjZFSP1LZo7dm6CzS-K3MjlHxvOaPtyefNPum_haQN61q__0T52fpjbXDivi3e07imFiKzGgaUB8DTATmfaQBDTLT-t-Cmp0s8T6LqMJgI_DmE99X_NumppqSYGw8ibeSnzHVohxY9nfOYH8PZiuUVE_eTHMYE2c2fFduOSNPsKpADDbL3E"/>
+</div>
+</div>
+</nav>
+<main class="mt-20 px-container-padding max-w-4xl mx-auto">
+<!-- Hero Section: Open Book Layout -->
+<section class="relative flex flex-col md:flex-row gap-stack-lg items-start py-stack-md">
+<!-- Book Cover Column -->
+<div class="w-full md:w-1/2 relative group">
+<!-- Bookmark Icon -->
+<button class="absolute top-0 right-8 z-10 w-12 h-16 bg-secondary flex items-center justify-center rounded-b-lg shadow-lg hover:h-20 transition-all duration-300 active:scale-95" title="Save to Reading List">
+<span class="material-symbols-outlined text-on-secondary filled-icon">bookmark</span>
+</button>
+<div class="book-shadow rounded-r-xl overflow-hidden transform md:-rotate-2 transition-transform duration-500 hover:rotate-0 bg-white">
+<img class="w-full aspect-[2/3] object-cover" data-alt="A premium book cover for 'The Architecture of Thought' featuring a minimalist, architectural blueprint of a human brain merging into a classical Greek column. The background is a textured ivory paper. Typography is elegant serif in deep navy blue. The visual style is scholarly and high-fidelity, reflecting a prestigious university press publication." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWfZm9ZYoCiVO8KBta_7JFxvJE6iVTdp1lJdb1YK3olY44ZJ1DvfZOG86yUYm5MAz3nXcSMzII6pLqWpKT0Sjf9v5ZgZV3l2vq9HvIunKM5-FwhO_8ggst7dSKkuLwtilS5b-XJdy-qRklLB83dIwN2_gVeWm0EnirEizliB9H-pM6VC2vF2nMiOA-01zNrL9ZqJ8QXZVIao7ymHfU7mYjOTmTuHcrH7KR_rYyfFeDFmc4kIy0Evsle-s_-Qh6LjLf8KZOVCggQAk"/>
+<div class="absolute inset-0 paper-texture"></div>
+</div>
+<!-- Availability Badge -->
+<div class="absolute -bottom-4 left-8 bg-surface-container-highest px-4 py-2 rounded-full shadow-sm flex items-center gap-2 border border-outline-variant">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">4/5 Available</span>
+</div>
+</div>
+<!-- Metadata Column -->
+<div class="w-full md:w-1/2 flex flex-col pt-8 md:pt-4">
+<div class="mb-gutter">
+<span class="font-label-caps text-label-caps uppercase text-secondary tracking-widest block mb-2">Cognitive Science &amp; Philosophy</span>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-primary mb-1">The Architecture of Thought</h2>
+<p class="font-title-md text-title-md text-on-surface-variant italic">Dr. Elena Rostova</p>
+</div>
+<!-- Action Section -->
+<div class="flex flex-col gap-4 mb-stack-md">
+<button class="w-full py-4 rounded-xl bg-primary text-on-primary font-title-md hover:opacity-90 transition-all active:scale-[0.98] duration-300 shadow-xl shadow-primary/10">
+                        BORROW
+                    </button>
+<div class="grid grid-cols-2 gap-4">
+<button class="flex items-center justify-center gap-2 py-3 border border-outline rounded-xl font-label-caps text-label-caps hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                            RESERVE
+                        </button>
+<button class="flex items-center justify-center gap-2 py-3 border border-outline rounded-xl font-label-caps text-label-caps hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">map</span>
+                            FIND IN LIBRARY
+                        </button>
+</div>
+</div>
+<!-- Detailed Specs -->
+<div class="grid grid-cols-2 gap-y-stack-sm border-t border-outline-variant pt-gutter">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase opacity-60">ISBN-13</p>
+<p class="font-body-sm text-body-sm font-semibold">978-3-16-148410-0</p>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase opacity-60">Shelf Location</p>
+<p class="font-body-sm text-body-sm font-semibold">Floor 2, Rack C, Shelf C4</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Description Section -->
+<section class="mt-stack-md">
+<h3 class="font-title-md text-title-md text-primary mb-4 border-b border-outline-variant pb-2 inline-block">Abstract</h3>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed first-letter:text-4xl first-letter:font-headline-lg first-letter:mr-2 first-letter:float-left">
+                An expansive exploration into the structural foundations of human cognition, Rostova argues that the mind is not merely a biological computer but a physical space constructed through the interaction of environment and intent. This seminal work draws from neural architecture, phenomenology, and classical design principles to redefine how we perceive the act of thinking itself.
+            </p>
+</section>
+<!-- Community Reviews -->
+<section class="mt-stack-lg">
+<div class="flex justify-between items-end mb-gutter">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">Scholarly Reviews</h3>
+<button class="font-label-caps text-label-caps text-secondary border-b border-secondary">View all 12 reviews</button>
+</div>
+<div class="space-y-gutter">
+<!-- Review 1 -->
+<div class="p-gutter bg-surface-container-low rounded-xl relative overflow-hidden group hover:bg-surface-container-high transition-colors">
+<div class="paper-texture absolute inset-0"></div>
+<div class="relative z-10">
+<div class="flex justify-between mb-2">
+<div class="flex gap-1 text-secondary">
+<span class="material-symbols-outlined filled-icon text-[16px]">star</span>
+<span class="material-symbols-outlined filled-icon text-[16px]">star</span>
+<span class="material-symbols-outlined filled-icon text-[16px]">star</span>
+<span class="material-symbols-outlined filled-icon text-[16px]">star</span>
+<span class="material-symbols-outlined filled-icon text-[16px]">star</span>
+</div>
+<span class="font-label-caps text-[10px] text-on-surface-variant opacity-60">OCT 12, 2023</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface mb-2 italic">"A rigorous and deeply satisfying read that bridges the gap between hard science and human experience."</p>
+<p class="font-label-caps text-label-caps text-on-surface-variant">— Prof. Marcus Thorne, Dept. of Philosophy</p>
+</div>
+</div>
+<!-- Review 2 -->
+<div class="p-gutter bg-surface-container-low rounded-xl relative overflow-hidden group hover:bg-surface-container-high transition-colors">
+<div class="paper-texture absolute inset-0"></div>
+<div class="relative z-10">
+<div class="flex justify-between mb-2">
+<div class="flex gap-1 text-secondary">
+<span class="material-symbols-outlined filled-icon text-[16px]">star</span>
+<span class="material-symbols-outlined filled-icon text-[16px]">star</span>
+<span class="material-symbols-outlined filled-icon text-[16px]">star</span>
+<span class="material-symbols-outlined filled-icon text-[16px]">star</span>
+<span class="material-symbols-outlined text-[16px]">star</span>
+</div>
+<span class="font-label-caps text-[10px] text-on-surface-variant opacity-60">SEP 28, 2023</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface mb-2 italic">"Essential for anyone interested in the future of AI and neural interfaces."</p>
+<p class="font-label-caps text-label-caps text-on-surface-variant">— Sarah J. Chen, PhD Candidate</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Related Shelf -->
+<section class="mt-stack-lg mb-stack-lg">
+<h3 class="font-title-md text-title-md text-primary mb-gutter">Related Works</h3>
+<div class="flex overflow-x-auto gap-gutter pb-8 -mx-container-padding px-container-padding no-scrollbar">
+<!-- Related Card 1 -->
+<div class="min-w-[140px] w-32 flex-shrink-0 group cursor-pointer">
+<div class="book-shadow rounded-lg overflow-hidden mb-2 transition-transform duration-300 group-hover:-translate-y-2">
+<img class="w-full aspect-[3/4] object-cover" data-alt="Book cover for 'Neural Landscapes' with an abstract fluid art background in teals and golds. Modern minimalist aesthetic for a library interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaLA3gbIPLV7x0IEh__MmSlnU89gmiQwW68JhYKq7TJDqhmwy9Apog-N4lxbCM6jTCFaOSou829FLSIVmoXPL1kzIkT0LK1Bi31FXl6JH5nUNVZplXCWWiglUV0boHCSpz2RCkS4bcmK7hsRChK73jaf3PHdaU2MQDMx074mwruWYYa26sV2Gn04SGbVSh9IPP0ax7UKMUw9vgr6qfLbAdPvJMIoJJayYZ87KaZ0Q3ZK_hUBp1cJ8Wj2Lj5FksXHxwIZZUefhFx28"/>
+</div>
+<p class="font-label-caps text-[11px] line-clamp-1">NEURAL LANDSCAPES</p>
+<p class="font-body-sm text-[10px] text-on-surface-variant opacity-70">A. H. Miller</p>
+</div>
+<!-- Related Card 2 -->
+<div class="min-w-[140px] w-32 flex-shrink-0 group cursor-pointer">
+<div class="book-shadow rounded-lg overflow-hidden mb-2 transition-transform duration-300 group-hover:-translate-y-2">
+<img class="w-full aspect-[3/4] object-cover" data-alt="Book cover for 'The Spatial Mind' featuring a geometric wireframe illustration on a deep navy background. Academic and scholarly style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8gRtMSk4NwlXW2_QiFqak2AVx8WIorvUGjmzQQId--xxSB82SLPNqHLBwmU0A-oFAIfzc44Blt1apVJnxYK_BKIpy07wb4P4t2pHO1HBEsHCOJu7BzQY9weaq_zVId8AZ4XaIvARJQdHWtWz4U7UvwOikIu3ce_SvjaDOZaSnGmI-Ruzk66BxcfplwQXo-fNURcLtNey2N1LKqciLhH1cyXLXeZmzrwaVTsRY8JOtbNzP-Vm7Pw4NnFjqU7FeD7p9dE6lF9afUew"/>
+</div>
+<p class="font-label-caps text-[11px] line-clamp-1">THE SPATIAL MIND</p>
+<p class="font-body-sm text-[10px] text-on-surface-variant opacity-70">K. Thompson</p>
+</div>
+<!-- Related Card 3 -->
+<div class="min-w-[140px] w-32 flex-shrink-0 group cursor-pointer opacity-50">
+<div class="book-shadow rounded-lg overflow-hidden mb-2">
+<img class="w-full aspect-[3/4] object-cover" data-alt="Book cover for 'Cognitive Voids' with a stark, brutalist architectural design. Minimalist and authoritative." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBe5SVc2fl7AFJIRhv7swSqHW9H12dt4O5tzBInO8opFW9ez0nTzRqVCHMIRwqvU47lmIidrAZGiNOT-O705ZfNpi8HWxfwwxpoIhIHEUwhAhBcBvtHoVRcpG8gUbAnA5WMXgJ8TTrOhk6FxG3_Hfm4biTcnE5p7cVjo55RRmRqbLHlF69OuKmhileeaMkpwa4PscVf7QmOn_pht4MYSTtuUuBY_aF7M71r3JegSm6vkMalRmQYh8U0ihC4SGBcyo6bRjCmNAOZ9hY"/>
+</div>
+<p class="font-label-caps text-[11px] line-clamp-1">COGNITIVE VOIDS</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4 bg-background/70 dark:bg-background/70 backdrop-blur-xl rounded-t-xl shadow-[0_-10px_30px_rgba(0,0,0,0.04)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-tertiary-fixed transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-caps text-label-caps mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-tertiary-fixed transition-colors" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-label-caps text-label-caps mt-1">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-tertiary-fixed transition-colors" href="#">
+<span class="material-symbols-outlined">qr_code_scanner</span>
+<span class="font-label-caps text-label-caps mt-1">Scan</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-tertiary-fixed font-bold translate-y-[-2px] transition-transform duration-300" href="#">
+<span class="material-symbols-outlined filled-icon">book_5</span>
+<span class="font-label-caps text-label-caps mt-1">Loans</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-tertiary-fixed transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-caps text-label-caps mt-1">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interactions
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const ripple = document.createElement('div');
+                ripple.className = 'absolute bg-white/20 rounded-full w-2 h-2 animate-ping pointer-events-none';
+                ripple.style.left = `${e.offsetX}px`;
+                ripple.style.top = `${e.offsetY}px`;
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 1000);
+            });
+        });
+
+        // Reading Progress Intersection Observer simulation
+        window.addEventListener('scroll', () => {
+            const scrollPos = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollPos / docHeight) * 100;
+            
+            // This could update a progress bar if we added one at the top
+        });
+    </script>
+</body></html>

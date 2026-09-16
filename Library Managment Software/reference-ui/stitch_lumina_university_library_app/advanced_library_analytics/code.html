@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Scholar's Ledger | Advanced Analytics</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;600;700&amp;family=Hanken+Grotesk:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed": "#131b2e",
+                    "inverse-surface": "#213145",
+                    "secondary-fixed": "#ffe088",
+                    "background": "#f8f9ff",
+                    "on-surface": "#0b1c30",
+                    "on-secondary-fixed": "#241a00",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed-variant": "#574500",
+                    "error-container": "#ffdad6",
+                    "primary-container": "#131b2e",
+                    "surface-dim": "#cbdbf5",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "tertiary-fixed-dim": "#c9c6c7",
+                    "surface-bright": "#f8f9ff",
+                    "primary": "#000000",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-tertiary-fixed-variant": "#474648",
+                    "secondary-container": "#fed65b",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-fixed": "#1c1b1d",
+                    "tertiary-container": "#1c1b1d",
+                    "tertiary": "#000000",
+                    "surface-variant": "#d3e4fe",
+                    "tertiary-fixed": "#e5e1e3",
+                    "outline-variant": "#c6c6cd",
+                    "on-tertiary-container": "#858385",
+                    "on-error": "#ffffff",
+                    "inverse-primary": "#bec6e0",
+                    "on-background": "#0b1c30",
+                    "on-primary-container": "#7c839b",
+                    "on-surface-variant": "#45464d",
+                    "secondary": "#735c00",
+                    "on-primary": "#ffffff",
+                    "surface-container-low": "#eff4ff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#f8f9ff",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed-dim": "#e9c349",
+                    "outline": "#76777d",
+                    "inverse-on-surface": "#eaf1ff",
+                    "surface-container-high": "#dce9ff",
+                    "on-secondary-container": "#745c00",
+                    "surface-tint": "#565e74",
+                    "surface-container": "#e5eeff",
+                    "primary-fixed": "#dae2fd"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sidebar-width": "280px",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "max-content-width": "1440px",
+                    "gutter": "24px",
+                    "xs": "0.5rem",
+                    "sm": "1rem",
+                    "base": "4px",
+                    "md": "1.5rem"
+            },
+            "fontFamily": {
+                    "headline-md": ["Libre Caslon Text"],
+                    "body-md": ["Hanken Grotesk"],
+                    "body-sm": ["Hanken Grotesk"],
+                    "headline-lg": ["Libre Caslon Text"],
+                    "display-lg": ["Libre Caslon Text"],
+                    "data-tabular": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "label-caps": ["JetBrains Mono"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "data-tabular": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Hanken Grotesk', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .chart-gradient-navy { background: linear-gradient(180deg, #131b2e 0%, #3f465c 100%); }
+        .chart-gradient-gold { background: linear-gradient(180deg, #735c00 0%, #ffe088 100%); }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid #e2e8f0;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- Side Navigation Shell -->
+<aside class="w-sidebar-width h-screen fixed left-0 top-0 bg-surface-container-lowest dark:bg-primary-container border-r border-outline-variant dark:border-on-primary-fixed-variant flex flex-col py-lg z-50">
+<div class="px-md mb-xl">
+<h1 class="font-headline-lg text-headline-lg font-bold text-on-surface dark:text-primary-fixed">Scholar's Ledger</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant opacity-70">Library Administration</p>
+</div>
+<nav class="flex-1 overflow-y-auto">
+<ul class="space-y-1">
+<!-- Determined Analytics as Active based on current page context -->
+<li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined">dashboard</span> <span class="font-label-caps text-label-caps">Dashboard</span></a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined">group</span> <span class="font-label-caps text-label-caps">Students</span></a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined">menu_book</span> <span class="font-label-caps text-label-caps">Books</span></a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 border-l-4 border-secondary text-on-surface font-semibold bg-surface-container-low" href="#"><span class="material-symbols-outlined">monitoring</span> <span class="font-label-caps text-label-caps">Analytics</span></a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined">assessment</span> <span class="font-label-caps text-label-caps">Reports</span></a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined">payments</span> <span class="font-label-caps text-label-caps">Fines &amp; Payments</span></a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined">settings</span> <span class="font-label-caps text-label-caps">Settings</span></a></li>
+</ul>
+</nav>
+<div class="px-md pt-lg border-t border-outline-variant">
+<button class="w-full py-3 bg-on-primary-fixed text-white rounded-lg flex items-center justify-center gap-2 hover:bg-on-primary-fixed-variant transition-all font-body-sm">
+<span class="material-symbols-outlined">add</span> Quick Add
+            </button>
+</div>
+</aside>
+<!-- Top Navigation Bar -->
+<header class="h-16 fixed top-0 right-0 z-40 bg-surface-bright dark:bg-on-primary-fixed border-b border-outline-variant dark:border-on-primary-fixed-variant shadow-sm flex justify-between items-center px-lg w-[calc(100%-var(--spacing-sidebar-width))] ml-sidebar-width">
+<div class="flex items-center gap-4 w-1/3">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 text-body-sm focus:ring-2 focus:ring-secondary/20" placeholder="Search analytics..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-secondary transition-colors">notifications</span>
+<div class="flex items-center gap-2">
+<div class="text-right">
+<p class="font-label-caps text-label-caps leading-none">Admin User</p>
+<p class="text-[10px] text-on-surface-variant">Super Administrator</p>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a library administrator in formal attire, set against a blurred background of a modern academic library with soft, warm lighting. The style is crisp, modern corporate photography with high-end light-mode clarity and elegant navy blue accents in the clothing." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqBLlEXGIfD-h3D8izZqB2s1cb5ZcGT4PELaSGfy1yA_8r12SEfJTpd4HKzcPXlutv4wIRio3vDIpPyxQHHdVKEMCeIjaoG0i74sshyRIy5oWzqGD6YaH3LnFKR-Fgv9RiZkiiByzXE-j4L5WLXPWFsTPG0KDNn57crhzH1C8E2k53RMEouWVI-XIo2tdbOTBrm_I18Z48rVUkcZoNm8GDDuEuWMCGr-4Z6ayUjiOLq2XxIMKNrnK2TUzfFqgW8G3TP5On9CL81OE"/>
+</div>
+</div>
+</div>
+<button class="bg-secondary text-white px-4 py-2 rounded-lg font-label-caps text-[12px] hover:bg-on-secondary-container transition-all scale-95 active:scale-100">
+                Add New
+            </button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-24 pl-sidebar-width min-h-screen">
+<div class="p-lg max-w-max-content-width mx-auto">
+<!-- Header & Date Range Picker -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-xl gap-4">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-primary-fixed">Advanced Analytics</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Real-time oversight of institutional assets and engagement metrics.</p>
+</div>
+<div class="flex items-center bg-surface-container border border-outline-variant rounded-lg p-1">
+<button class="px-4 py-2 font-label-caps text-label-caps text-on-surface-variant hover:text-secondary">Semester</button>
+<button class="px-4 py-2 bg-surface-container-lowest shadow-sm rounded font-label-caps text-label-caps text-secondary font-bold">30 Days</button>
+<button class="px-4 py-2 font-label-caps text-label-caps text-on-surface-variant hover:text-secondary">Custom</button>
+<div class="ml-2 pl-2 border-l border-outline-variant flex items-center gap-2 px-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span class="font-data-tabular text-[12px]">Oct 01 - Oct 31, 2023</span>
+</div>
+</div>
+</div>
+<!-- Dashboard Bento Grid -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Main Trend: Library Usage -->
+<div class="col-span-12 lg:col-span-8 glass-card rounded-xl p-md">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant">Library Usage Trends</h3>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-on-primary-fixed"></span>
+<span class="font-label-caps text-[10px]">Physical</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-secondary"></span>
+<span class="font-label-caps text-[10px]">Digital</span>
+</div>
+</div>
+</div>
+<!-- Mock Chart for Trends -->
+<div class="h-64 flex items-end justify-between gap-1 relative overflow-hidden group">
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-20">
+<div class="border-t border-outline-variant w-full h-0"></div>
+<div class="border-t border-outline-variant w-full h-0"></div>
+<div class="border-t border-outline-variant w-full h-0"></div>
+<div class="border-t border-outline-variant w-full h-0"></div>
+</div>
+<!-- Synthetic Bar Elements -->
+<div class="flex-1 bg-on-primary-fixed/10 rounded-t-sm h-[40%] transition-all hover:bg-on-primary-fixed/20 relative group">
+<div class="absolute bottom-0 left-0 right-0 bg-on-primary-fixed h-3/4 rounded-t-sm"></div>
+<div class="absolute bottom-0 left-0 right-0 bg-secondary w-1/3 h-1/2 ml-1 opacity-80"></div>
+</div>
+<div class="flex-1 bg-on-primary-fixed/10 rounded-t-sm h-[55%]">
+<div class="absolute bottom-0 left-0 right-0 bg-on-primary-fixed h-4/5 rounded-t-sm"></div>
+<div class="absolute bottom-0 left-0 right-0 bg-secondary w-1/3 h-2/3 ml-1 opacity-80"></div>
+</div>
+<div class="flex-1 bg-on-primary-fixed/10 rounded-t-sm h-[70%]">
+<div class="absolute bottom-0 left-0 right-0 bg-on-primary-fixed h-3/5 rounded-t-sm"></div>
+<div class="absolute bottom-0 left-0 right-0 bg-secondary w-1/3 h-1/3 ml-1 opacity-80"></div>
+</div>
+<div class="flex-1 bg-on-primary-fixed/10 rounded-t-sm h-[65%]">
+<div class="absolute bottom-0 left-0 right-0 bg-on-primary-fixed h-4/5 rounded-t-sm"></div>
+<div class="absolute bottom-0 left-0 right-0 bg-secondary w-1/3 h-2/3 ml-1 opacity-80"></div>
+</div>
+<div class="flex-1 bg-on-primary-fixed/10 rounded-t-sm h-[85%]">
+<div class="absolute bottom-0 left-0 right-0 bg-on-primary-fixed h-full rounded-t-sm"></div>
+<div class="absolute bottom-0 left-0 right-0 bg-secondary w-1/3 h-3/4 ml-1 opacity-80"></div>
+</div>
+<div class="flex-1 bg-on-primary-fixed/10 rounded-t-sm h-[75%]">
+<div class="absolute bottom-0 left-0 right-0 bg-on-primary-fixed h-5/6 rounded-t-sm"></div>
+<div class="absolute bottom-0 left-0 right-0 bg-secondary w-1/3 h-1/2 ml-1 opacity-80"></div>
+</div>
+<div class="flex-1 bg-on-primary-fixed/10 rounded-t-sm h-[90%]">
+<div class="absolute bottom-0 left-0 right-0 bg-on-primary-fixed h-4/5 rounded-t-sm"></div>
+<div class="absolute bottom-0 left-0 right-0 bg-secondary w-1/3 h-3/4 ml-1 opacity-80"></div>
+</div>
+<div class="flex-1 bg-on-primary-fixed/10 rounded-t-sm h-[60%]">
+<div class="absolute bottom-0 left-0 right-0 bg-on-primary-fixed h-2/3 rounded-t-sm"></div>
+<div class="absolute bottom-0 left-0 right-0 bg-secondary w-1/3 h-1/2 ml-1 opacity-80"></div>
+</div>
+<!-- Repeated for visualization density -->
+<div class="flex-1 bg-on-primary-fixed/10 rounded-t-sm h-[70%]">
+<div class="absolute bottom-0 left-0 right-0 bg-on-primary-fixed h-5/6 rounded-t-sm"></div>
+</div>
+</div>
+</div>
+<!-- Popular Categories: Vertical Bar Chart -->
+<div class="col-span-12 lg:col-span-4 glass-card rounded-xl p-md">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-md">Popular Categories</h3>
+<div class="space-y-4">
+<div class="space-y-1">
+<div class="flex justify-between font-body-sm text-[12px]">
+<span>Theoretical Physics</span>
+<span class="font-data-tabular">2,482</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-on-primary-fixed w-[85%]"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between font-body-sm text-[12px]">
+<span>Renaissance Art</span>
+<span class="font-data-tabular">1,920</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[72%]"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between font-body-sm text-[12px]">
+<span>Global Economics</span>
+<span class="font-data-tabular">1,654</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-on-primary-fixed w-[60%]"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between font-body-sm text-[12px]">
+<span>Classical Literature</span>
+<span class="font-data-tabular">1,200</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-on-primary-fixed w-[45%]"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between font-body-sm text-[12px]">
+<span>Architecture</span>
+<span class="font-data-tabular">940</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-on-primary-fixed w-[32%]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Reservation Demand vs Supply -->
+<div class="col-span-12 md:col-span-6 glass-card rounded-xl p-md">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-md">Reservation Demand vs Supply</h3>
+<div class="relative h-48 w-full flex items-center justify-center">
+<!-- Abstract Visualization SVG -->
+<svg class="w-full h-full" viewbox="0 0 400 200">
+<path d="M0,150 Q50,130 100,160 T200,100 T300,140 T400,80" fill="none" stroke="#735c00" stroke-width="3"></path>
+<path d="M0,180 Q50,160 100,170 T200,140 T300,150 T400,120" fill="none" stroke="#131b2e" stroke-dasharray="8,4" stroke-width="3"></path>
+<circle cx="400" cy="80" fill="#735c00" r="4"></circle>
+<circle cx="400" cy="120" fill="#131b2e" r="4"></circle>
+</svg>
+</div>
+<div class="mt-4 flex justify-between">
+<div class="text-center flex-1 border-r border-outline-variant">
+<p class="font-label-caps text-[10px] text-on-surface-variant uppercase">Peak Demand</p>
+<p class="font-headline-md text-headline-md text-on-primary-fixed">124%</p>
+</div>
+<div class="text-center flex-1">
+<p class="font-label-caps text-[10px] text-on-surface-variant uppercase">Supply Gap</p>
+<p class="font-headline-md text-headline-md text-error">-14%</p>
+</div>
+</div>
+</div>
+<!-- Monthly Fine Collection -->
+<div class="col-span-12 md:col-span-6 glass-card rounded-xl p-md">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant">Monthly Fine Collection</h3>
+<span class="text-secondary font-bold font-data-tabular">+$4,290.00</span>
+</div>
+<div class="h-48 flex items-end gap-2 group">
+<div class="flex-1 bg-surface-container-high rounded-t h-[30%] hover:bg-secondary transition-all cursor-pointer"></div>
+<div class="flex-1 bg-surface-container-high rounded-t h-[45%] hover:bg-secondary transition-all cursor-pointer"></div>
+<div class="flex-1 bg-surface-container-high rounded-t h-[40%] hover:bg-secondary transition-all cursor-pointer"></div>
+<div class="flex-1 bg-surface-container-high rounded-t h-[60%] hover:bg-secondary transition-all cursor-pointer"></div>
+<div class="flex-1 bg-surface-container-high rounded-t h-[55%] hover:bg-secondary transition-all cursor-pointer"></div>
+<div class="flex-1 bg-surface-container-high rounded-t h-[75%] hover:bg-secondary transition-all cursor-pointer"></div>
+<div class="flex-1 bg-on-primary-fixed rounded-t h-[95%] hover:bg-secondary transition-all cursor-pointer"></div>
+</div>
+<div class="mt-4 flex justify-between font-label-caps text-[10px] text-on-surface-variant">
+<span>MAY</span><span>JUN</span><span>JUL</span><span>AUG</span><span>SEP</span><span>OCT</span><span class="font-bold text-on-surface">NOV</span>
+</div>
+</div>
+<!-- Recent Anomalies / Alerts -->
+<div class="col-span-12 glass-card rounded-xl overflow-hidden">
+<div class="px-md py-4 bg-surface-container flex justify-between items-center">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant">System Alerts &amp; Insights</h3>
+<button class="text-secondary text-[12px] font-bold flex items-center gap-1">
+                            View All <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+<div class="p-0">
+<table class="w-full text-left">
+<thead class="bg-surface-dim/20 font-label-caps text-[11px] text-on-surface-variant uppercase">
+<tr>
+<th class="px-md py-3">Alert Type</th>
+<th class="px-md py-3">Category</th>
+<th class="px-md py-3">Value</th>
+<th class="px-md py-3">Variance</th>
+<th class="px-md py-3 text-right">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-md py-4 font-body-sm">Unusual Reservation Spike</td>
+<td class="px-md py-4 font-label-caps text-[11px]">Computer Science</td>
+<td class="px-md py-4 font-data-tabular">450 units</td>
+<td class="px-md py-4 font-data-tabular text-error">+24.5%</td>
+<td class="px-md py-4 text-right">
+<span class="bg-error-container text-on-error-container px-2 py-1 rounded text-[10px] font-bold uppercase">Critical</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-md py-4 font-body-sm">Fine Payment Recovery</td>
+<td class="px-md py-4 font-label-caps text-[11px]">Finance</td>
+<td class="px-md py-4 font-data-tabular">$1,200.00</td>
+<td class="px-md py-4 font-data-tabular text-secondary">+12.2%</td>
+<td class="px-md py-4 text-right">
+<span class="bg-surface-container-highest text-on-surface px-2 py-1 rounded text-[10px] font-bold uppercase">Stable</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-md py-4 font-body-sm">Inventory Lag Detection</td>
+<td class="px-md py-4 font-label-caps text-[11px]">Logistics</td>
+<td class="px-md py-4 font-data-tabular">18 Items</td>
+<td class="px-md py-4 font-data-tabular text-error-variant">-8.0%</td>
+<td class="px-md py-4 text-right">
+<span class="bg-surface-variant text-on-surface-variant px-2 py-1 rounded text-[10px] font-bold uppercase">Warning</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB for Quick Insights (Determined contextually for Analytics Dashboard) -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-secondary text-on-secondary rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform active:scale-95 group z-50">
+<span class="material-symbols-outlined text-[32px] group-hover:rotate-12 transition-transform">insights</span>
+<div class="absolute right-full mr-4 bg-on-primary-fixed text-white px-4 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap font-label-caps text-[12px]">
+            Generate AI Report
+        </div>
+</button>
+<script>
+        // Micro-interaction for tab buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (this.innerText === 'Semester' || this.innerText === '30 Days' || this.innerText === 'Custom') {
+                    document.querySelectorAll('button').forEach(b => {
+                        b.classList.remove('bg-surface-container-lowest', 'shadow-sm', 'text-secondary', 'font-bold');
+                        b.classList.add('text-on-surface-variant');
+                    });
+                    this.classList.remove('text-on-surface-variant');
+                    this.classList.add('bg-surface-container-lowest', 'shadow-sm', 'text-secondary', 'font-bold');
+                }
+            });
+        });
+
+        // Simple animation for the bars on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const bars = document.querySelectorAll('.flex-1.bg-on-primary-fixed');
+            bars.forEach((bar, index) => {
+                const height = bar.style.height;
+                bar.style.height = '0';
+                setTimeout(() => {
+                    bar.style.transition = 'height 1s cubic-bezier(0.16, 1, 0.3, 1)';
+                    bar.style.height = height;
+                }, 100 * index);
+            });
+        });
+    </script>
+</body></html>

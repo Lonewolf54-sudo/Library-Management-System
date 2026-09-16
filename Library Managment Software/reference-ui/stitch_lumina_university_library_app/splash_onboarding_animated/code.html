@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Athenaeum Digital</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed-variant": "#5f4105",
+                    "surface": "#f7f9fb",
+                    "secondary-fixed": "#ffdeac",
+                    "surface-container": "#eceef0",
+                    "inverse-on-surface": "#eff1f3",
+                    "surface-tint": "#565e74",
+                    "background": "#f7f9fb",
+                    "tertiary": "#000000",
+                    "on-primary-fixed": "#131b2e",
+                    "on-primary-container": "#7c839b",
+                    "on-primary": "#ffffff",
+                    "tertiary-container": "#001453",
+                    "secondary-fixed-dim": "#ebc07a",
+                    "primary": "#000000",
+                    "primary-container": "#131b2e",
+                    "on-tertiary-fixed-variant": "#173bab",
+                    "primary-fixed": "#dae2fd",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "on-tertiary-container": "#607cec",
+                    "on-secondary-fixed": "#281900",
+                    "inverse-primary": "#bec6e0",
+                    "surface-container-high": "#e6e8ea",
+                    "on-secondary-container": "#78581c",
+                    "surface-container-highest": "#e0e3e5",
+                    "outline": "#76777d",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#f2f4f6",
+                    "outline-variant": "#c6c6cd",
+                    "tertiary-fixed-dim": "#b8c4ff",
+                    "tertiary-fixed": "#dde1ff",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "inverse-surface": "#2d3133",
+                    "secondary": "#79591d",
+                    "surface-dim": "#d8dadc",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-surface": "#191c1e",
+                    "secondary-container": "#fdd089",
+                    "on-tertiary-fixed": "#001453",
+                    "surface-variant": "#e0e3e5",
+                    "on-secondary": "#ffffff",
+                    "on-background": "#191c1e",
+                    "on-surface-variant": "#45464d",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "surface-bright": "#f7f9fb"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "12px",
+                    "stack-md": "24px",
+                    "container-padding": "24px",
+                    "gutter": "16px",
+                    "base": "8px",
+                    "stack-lg": "48px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["\"Source Serif 4\""],
+                    "title-md": ["Hanken Grotesk"],
+                    "body-sm": ["Hanken Grotesk"],
+                    "label-caps": ["Hanken Grotesk"],
+                    "headline-lg": ["\"Source Serif 4\""],
+                    "display-lg": ["\"Source Serif 4\""]
+            },
+            "fontSize": {
+                    "body-lg": ["16px", {"lineHeight": "26px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "title-md": ["18px", {"lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f7f9fb;
+            overflow: hidden;
+            font-family: 'Hanken Grotesk', sans-serif;
+        }
+
+        .shelf-line {
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            width: 80%;
+            position: absolute;
+            bottom: 40%;
+            z-index: 5;
+        }
+
+        .golden-book {
+            width: 120px;
+            height: 180px;
+            background: #fdd089;
+            border-radius: 4px 12px 12px 4px;
+            position: absolute;
+            bottom: 40%;
+            left: 50%;
+            transform: translate(-50%, 0) translateX(-100vw) rotate(-20deg);
+            box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
+            transition: transform 1.8s cubic-bezier(0.19, 1, 0.22, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            opacity: 0;
+        }
+
+        .golden-book::after {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: rgba(0,0,0,0.1);
+        }
+
+        .splash-text {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out;
+            z-index: 20;
+        }
+
+        .animate-in .golden-book {
+            transform: translate(-50%, 0) translateX(0) rotate(-5deg);
+            opacity: 1;
+        }
+
+        .animate-in .splash-text {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .onboarding-screen {
+            position: absolute;
+            inset: 0;
+            z-index: 50;
+            transform: translateX(100%);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .onboarding-screen.active {
+            transform: translateX(0);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+        }
+
+        .btn-shadow {
+            box-shadow: 0 10px 30px rgba(121, 89, 29, 0.2);
+        }
+
+        webgl-shader {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="antialiased">
+<!-- Splash Screen Container -->
+<div class="fixed inset-0 flex flex-col items-center justify-center z-[100] transition-opacity duration-700 overflow-hidden" id="splash">
+<!-- WebGL Shader Background -->
+<!-- STITCH_SHADER_START:ANIMATION_155 class="" -->
+<div class="" style="display:block;width:100%;height:100%;min-height:200px;">
+<canvas id="shader-canvas-ANIMATION_155" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_155');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+uniform float u_time;
+uniform vec2 u_resolution;
+
+void main() {
+    vec2 uv = gl_FragCoord.xy / u_resolution.xy;
+    float noise = sin(uv.x * 10.0 + u_time) * cos(uv.y * 10.0 + u_time) * 0.1;
+    vec3 color1 = vec3(0.06, 0.09, 0.16); // Navy
+    vec3 color2 = vec3(0.12, 0.16, 0.25); // Lighter Navy
+    vec3 finalColor = mix(color1, color2, uv.y + noise);
+    
+    // Add subtle 'paper' texture grain
+    float grain = fract(sin(dot(uv, vec2(12.9898, 78.233))) * 43758.5453);
+    finalColor += grain * 0.02;
+    
+    gl_FragColor = vec4(finalColor, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_155 -->
+<div class="shelf-line"></div>
+<!-- Animated Book -->
+<div class="golden-book">
+<span class="material-symbols-outlined text-secondary text-5xl" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
+</div>
+<!-- Branding -->
+<div class="absolute bottom-24 text-center px-container-padding splash-text w-full">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-white mb-2 tracking-tight">Athenaeum Digital</h1>
+<p class="font-body-lg text-body-lg text-white/70 mb-12">Your library, wherever you are.</p>
+<button class="w-full max-w-xs mx-auto py-4 bg-secondary-container text-on-secondary-container font-label-caps text-label-caps rounded-xl btn-shadow active:scale-95 transition-all" onclick="startOnboarding()">
+                GET STARTED
+            </button>
+</div>
+</div>
+<!-- Onboarding Step 1: Search and Discover -->
+<div class="onboarding-screen bg-surface flex flex-col" id="step-1">
+<div class="p-container-padding mt-24 flex-1">
+<div class="w-full aspect-[4/5] glass-card overflow-hidden mb-12 flex items-center justify-center p-8 relative">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover opacity-80" data-alt="A high-fidelity minimalist digital 3D rendering of a modern university library shelf with softly lit books in a serene scholarly atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8MFDqH0tPgow6DoKYQYOFb2lsGxN6kuZD9HQnJYwjOyCygUGDW2e8MisHkkh6b89_Ezz_W2OfJSRcZMllTmeY-YiYMgH75h7Mv-eSgZd5ixIzVqMMStVyEX7MymsVBvuri0uhcmpLq0tHVRlAiUA80m26hbe-VkOSvegliWGE6HfifphhMg6W8fkaX6OiFGDxpE3MHPe9Egzrb-6amWOi3dYmE8oYneggmrtTjw9iPvu2jXaLogA_VYh70nX4I5GumSFYasISqno"/>
+</div>
+<div class="z-10 text-center">
+<div class="w-20 h-20 bg-primary-container/10 rounded-full flex items-center justify-center mx-auto mb-6">
+<span class="material-symbols-outlined text-primary-container text-4xl">search_insights</span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-4">Search and Discover</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant px-4">Access millions of academic journals, rare manuscripts, and contemporary bestsellers in an instant.</p>
+</div>
+</div>
+</div>
+<div class="p-container-padding pb-12">
+<div class="flex gap-2 mb-8 justify-center">
+<div class="w-8 h-1.5 bg-primary rounded-full"></div>
+<div class="w-2 h-1.5 bg-outline-variant rounded-full"></div>
+</div>
+<button class="w-full py-4 bg-primary text-on-primary font-label-caps text-label-caps rounded-xl active:scale-95 transition-all" onclick="nextStep(2)">
+                CONTINUE
+            </button>
+</div>
+</div>
+<!-- Onboarding Step 2: Borrow and Reserve -->
+<div class="onboarding-screen bg-surface flex flex-col" id="step-2">
+<div class="p-container-padding mt-24 flex-1">
+<div class="w-full aspect-[4/5] glass-card overflow-hidden mb-12 flex items-center justify-center p-8 relative">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover opacity-80" data-alt="A sophisticated digital illustration of a glowing holographic library card being scanned by a futuristic interface in a scholarly setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEOEIcf6mCzEQJnxM8kuvEyG5cFem_xlgDwMgpV9mlVBJijxipWJGDtqEjeCFtaP4qyayzM63elF6TrpJAfe6pc7r6-9R1aMoiotW_bzIlvQ3Gf8S0VC3ByOnZUu1qnsZQgM9SgtI0aAr84Ayymp79QNLXqZVgHm0RRhwvFsY-cRdd2_OluXYosljDP5VSXLeESn7nGGjYzYDlu4xGKpPLpSeB2ybJHAM6y3HERkjR0gFwNXgj2DzB1ZkDS1HbduAc3GU5Mg4JHl0"/>
+</div>
+<div class="z-10 text-center">
+<div class="w-20 h-20 bg-secondary-container/20 rounded-full flex items-center justify-center mx-auto mb-6">
+<span class="material-symbols-outlined text-secondary text-4xl" style="font-variation-settings: 'FILL' 1;">book_5</span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-4">Borrow and Reserve</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant px-4">Manage your loans effortlessly. One-tap reservations and automated digital renewals at your fingertips.</p>
+</div>
+</div>
+</div>
+<div class="p-container-padding pb-12">
+<div class="flex gap-2 mb-8 justify-center">
+<div class="w-2 h-1.5 bg-outline-variant rounded-full"></div>
+<div class="w-8 h-1.5 bg-primary rounded-full"></div>
+</div>
+<button class="w-full py-4 bg-secondary text-on-secondary font-label-caps text-label-caps rounded-xl active:scale-95 transition-all" onclick="completeOnboarding()">
+                EXPLORE ARCHIVE
+            </button>
+</div>
+</div>
+<script>
+        // Trigger splash animation on load
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.getElementById('splash').classList.add('animate-in');
+            }, 300);
+        });
+
+        function startOnboarding() {
+            const splash = document.getElementById('splash');
+            const step1 = document.getElementById('step-1');
+            
+            splash.style.opacity = '0';
+            setTimeout(() => {
+                splash.style.display = 'none';
+                step1.classList.add('active');
+            }, 600);
+        }
+
+        function nextStep(step) {
+            if (step === 2) {
+                document.getElementById('step-1').classList.remove('active');
+                document.getElementById('step-1').style.transform = 'translateX(-100%)';
+                document.getElementById('step-2').classList.add('active');
+            }
+        }
+
+        function completeOnboarding() {
+            // Final transition effect
+            const step2 = document.getElementById('step-2');
+            step2.style.transition = 'opacity 1s ease-out';
+            step2.style.opacity = '0';
+            
+            setTimeout(() => {
+                alert('Welcome to the Living Archive. Redirecting to Library Home...');
+                window.location.reload(); 
+            }, 1000);
+        }
+
+        // Parallax effect for the book on splash
+        document.addEventListener('mousemove', (e) => {
+            if (!document.getElementById('splash').classList.contains('animate-in')) return;
+            
+            const book = document.querySelector('.golden-book');
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            
+            book.style.transform = `translate(-50%, 0) translate(${moveX}px, ${moveY}px) rotate(-5deg)`;
+        });
+
+        // WebGL Shader Component Definition
+        class WebGLShader extends HTMLElement {
+            constructor() {
+                super();
+                this.attachShadow({ mode: 'open' });
+            }
+
+            connectedCallback() {
+                const script = this.getAttribute('script');
+                const canvas = document.createElement('canvas');
+                canvas.style.width = '100%';
+                canvas.style.height = '100%';
+                canvas.style.display = 'block';
+                this.shadowRoot.appendChild(canvas);
+
+                const gl = canvas.getContext('webgl');
+                if (!gl) return;
+
+                const createShader = (type, source) => {
+                    const shader = gl.createShader(type);
+                    gl.shaderSource(shader, source);
+                    gl.compileShader(shader);
+                    return shader;
+                };
+
+                const vs = createShader(gl.VERTEX_SHADER, `
+                    attribute vec2 position;
+                    void main() {
+                        gl_Position = vec4(position, 0.0, 1.0);
+                    }
+                `);
+
+                const fs = createShader(gl.FRAGMENT_SHADER, script);
+                const program = gl.createProgram();
+                gl.attachShader(program, vs);
+                gl.attachShader(program, fs);
+                gl.linkProgram(program);
+                gl.useProgram(program);
+
+                const positionBuffer = gl.createBuffer();
+                gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]), gl.STATIC_DRAW);
+
+                const positionLocation = gl.getAttribLocation(program, 'position');
+                gl.enableVertexAttribArray(positionLocation);
+                gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+
+                const timeLocation = gl.getUniformLocation(program, 'u_time');
+                const resolutionLocation = gl.getUniformLocation(program, 'u_resolution');
+
+                const render = (time) => {
+                    const width = canvas.clientWidth;
+                    const height = canvas.clientHeight;
+                    if (canvas.width !== width || canvas.height !== height) {
+                        canvas.width = width;
+                        canvas.height = height;
+                        gl.viewport(0, 0, width, height);
+                    }
+
+                    gl.uniform1f(timeLocation, time * 0.001);
+                    gl.uniform2f(resolutionLocation, width, height);
+                    gl.drawArrays(gl.TRIANGLES, 0, 6);
+                    requestAnimationFrame(render);
+                };
+                requestAnimationFrame(render);
+            }
+        }
+        customElements.define('webgl-shader', WebGLShader);
+    </script>
+</body></html>
